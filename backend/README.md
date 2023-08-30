@@ -1,4 +1,4 @@
-# Suriya
+# Suriya-Api
 
 ## Requirements
 
