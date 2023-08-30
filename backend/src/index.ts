@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 
+dotenv.config();
+
 const app = express();
 
 app.use(
@@ -13,6 +15,6 @@ app.use(
 
 app.use(bodyParser.json());
 
-app.listen(8080, () => {
-  console.log("Server runnig on http://localhost:8080/");
+app.listen(process.env.PORT, () => {
+  console.log("Server runnig at http://localhost:8080");
 });
