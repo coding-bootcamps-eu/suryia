@@ -14,6 +14,6 @@ app.use((0, cors_1.default)({
 app.use(body_parser_1.default.json());
 const server = http_1.default.createServer(app);
 server.listen(8080, () => {
-    console.log("Server runnig on http://127.0.0.1:8080/");
+    console.log("Server runnig on http://localhost:8080/");
 });
 //# sourceMappingURL=index.js.map
