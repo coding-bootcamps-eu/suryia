@@ -9,12 +9,18 @@ const app = express();
 
 app.use(
   cors({
-    credentials: true,
+    //origin: "https://google.com",
   })
 );
 
 app.use(bodyParser.json());
 
+app.get("/corstest", (req: Request, res: Response) => {
+  res.json({
+    status: "ok",
+  });
+});
+
 app.listen(process.env.PORT, () => {
-  console.log("Server runnig at http://localhost:8080");
+  console.log("Server runnig at http://localhost:" + process.env.PORT);
 });
