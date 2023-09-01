@@ -4,69 +4,30 @@
 
 Node.js v18.17.1.
 
-'''
-npm init
+## Getting started
 
-'''
+### Install
 
-Install TypeScript:
+```sh
+npm install
+```
 
-'''
-npm install --save-dev typescript
+### Prepare .env
 
-'''
+```sh
+cp .env.example .env
+```
 
-Let set up the TypeScript compiler. You have to create a configuration file as config.json:
+#### Define App
 
-'''
+The Api requires a port. Define it in the `.env` file Example:
 
-"compilerOptions": {
-"module": "NodeNext",
-"moduleResolution": "nodenext",
-"baseUrl": "./src",
-"esModuleInterop": true,
-"outDir": "dist",
-"sourceMap": true,
-"noImplicitAny": true
-},
-"include": ["./src/**/*"],
+```
+PORT=8080
+```
 
-'''
-Add these couple of scripts to package.json:
+### Start Dev Server
 
-'''
-"scripts": {
-"dev": "nodemon",
-"start": "node ./dist/index.js",
-"build": "tsc -w",
-"test": "echo \"Error: no test specified\" && exit 1"
-},
-'''
-
-Install Express as normal dependency :
-
-'''
-npm install --save express
-
-'''
-
-With this we have added express to the package.json file. Express by itself does not have any built in typescript support.
-To use Express in the TypeScript program, install a development dependency of the following types:
-
-'''
-npm install --save-dev @types/express
-
-Same procedure as before. Install body-parser, cors:
-
-'''
-npm install --save body-parser cors
-npm install --save-dev @types/body-parser @types/cors
-
-'''
-
-Install .env:
-
-'''
-npm install --save dotenv
-
-'''
+```sh
+npm run dev
+```
