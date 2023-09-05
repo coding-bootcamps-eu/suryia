@@ -1,31 +1,42 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-import { config } from "./config";
-
-dotenv.config();
-
+import mongoose, { ConnectOptions } from "mongoose";
+import { PORT, MONGODB_URI, API_VERSION } from "./config";
+import { Status } from "./models/Status";
 const app = express();
-const port = config.app.port || 8080;
+app.use(express.json());
 
 //Connect to mongodb using the configuration
-
-const dbURI: string =
-  "mongodb://${config.db.host}:${config.db.port}:${config.db.name}";
-
 mongoose
-  .connect(dbURI, {
-    userNewUrlParser: true,
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
     useUnifiedTopology: true,
-  })
+    autoIndex: true,
+  } as ConnectOptions)
   .then(() => {
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
-    console.log("MongoDB connection error:", error);
+    console.error("MongoDB connection error:", error);
   });
+
+app.get('"/status"', async (req: Request, res: Response) => {
+  try {
+    const dbStatus = mongoose.connection.readyState === 1;
+    const status = new Status({ db: dbStatus });
+    await status.save();
+    res.json({
+      status: {
+        db: dbStatus,
+      },
+      api_version: API_VERSION,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 app.use(
   cors({
@@ -41,6 +52,6 @@ app.get("/corstest", (req: Request, res: Response) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log("Server runnig at http://localhost:" + process.env.PORT);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
