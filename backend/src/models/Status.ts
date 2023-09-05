@@ -1,11 +1,11 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 interface StatusDocument extends Document {
-  db: boolean;
+  db: Boolean;
 }
 
 const StatusSchema = new mongoose.Schema({
-  db: Boolean,
+  db: { type: Boolean, required: true },
 });
 
 export const Status = mongoose.model<StatusDocument>("Status", StatusSchema);
