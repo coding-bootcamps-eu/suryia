@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose, { ConnectOptions, startSession } from "mongoose";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
+
 const app = express();
 app.use(express.json());
 
@@ -26,6 +27,7 @@ app.get('"/status"', async (req: Request, res: Response) => {
     const dbStatus = mongoose.connection.readyState === 1;
     const status = new Status({ db: dbStatus });
     await status.save();
+    console.log("Status saved successfully");
     res.json({
       status: {
         db: dbStatus,
@@ -55,3 +57,5 @@ app.get("/corstest", (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+startSession();
