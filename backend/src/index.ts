@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose, { ConnectOptions, startSession } from "mongoose";
+import connectToDB from "./db";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 
@@ -9,24 +10,17 @@ const app = express();
 app.use(express.json());
 
 //Connect to mongodb using the configuration
-mongoose
-  .connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    autoIndex: true,
-  } as ConnectOptions)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("MongoDB connection error:", error);
-  });
+connectToDB();
 
-app.get('"/status"', async (req: Request, res: Response) => {
+app.get("/status", async (req: Request, res: Response) => {
   try {
     const dbStatus = mongoose.connection.readyState === 1;
-    const status = new Status({ db: dbStatus });
-    await status.save();
+    const status = await Status.findOne({});
+
+    if (!status) {
+      console.log("Status not found!");
+      res.status(404).json({ error: "Status not found!" });
+    }
     console.log("Status saved successfully");
     res.json({
       status: {
@@ -57,5 +51,4 @@ app.get("/corstest", (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
 startSession();
