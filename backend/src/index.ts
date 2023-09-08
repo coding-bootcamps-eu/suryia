@@ -9,9 +9,10 @@ import { Status } from "./models/Status";
 const app = express();
 app.use(express.json());
 
-//Connect to mongodb using the configuration
+//Connection to mongodb
 connectToDB();
 
+//Return the MongoDB connection status and store the API version in the database:
 app.get("/status", async (req: Request, res: Response) => {
   try {
     const dbStatus = mongoose.connection.readyState === 1;
