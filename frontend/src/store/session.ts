@@ -6,8 +6,9 @@ export const userSessionStore = defineStore({
         user: null as string | null
     }),
     actions: {
-        login(email:string){
+        login(email:string, password:string){
             this.user = email;
+            this.user = password;
         },
         logout(){
             this.user = null
