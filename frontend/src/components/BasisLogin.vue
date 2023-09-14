@@ -26,16 +26,16 @@ export default defineComponent({
     const router = useRouter()
     const login = async () => {
       try {
-        if (email.value === 'benutzer@email.com' && password.value === 'passwort123') {
+        if (email.value === 'user@email.com' && password.value === 'password123') {
           sessionStore.login(email.value)
           router.push('/dashboard')
         } else {
-          errorMessage.value = 'Falsche E-Mail oder Passwort.'
+          errorMessage.value = 'Incorrect email or password'
         }
       } catch (error) {
-        // Fehlerbehandlung, falls eine API-Anfrage fehlschlägt
-        console.error('Fehler bei der Anmeldung:', error)
-        errorMessage.value = 'Fehler bei der Anmeldung. Bitte versuche es erneut.'
+        // Error handling in case of a failed API request.
+        console.error('Error during login:', error)
+        errorMessage.value = 'Error during login. Try again!.'
       }
     }
 
