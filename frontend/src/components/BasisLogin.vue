@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
@@ -22,11 +23,12 @@ export default defineComponent({
     const email = ref('')
     const password = ref('')
     const errorMessage = ref('')
-
+    const router = useRouter()
     const login = async () => {
       try {
         if (email.value === 'benutzer@email.com' && password.value === 'passwort123') {
           sessionStore.login(email.value)
+          router.push('/dashboard')
         } else {
           errorMessage.value = 'Falsche E-Mail oder Passwort.'
         }
