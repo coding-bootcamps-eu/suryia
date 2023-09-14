@@ -1,18 +1,31 @@
-import {defineStore} from "pinia";
+import { defineStore } from 'pinia'
 
-export const userSessionStore = defineStore({
-    id: "session",
-    state: () => ({
-        user: null as string | null
-    }),
-    actions: {
-        login(email:string, password:string){
-            this.user = email;
-            this.user = password;
-        },
-        logout(){
-            this.user = null
-        },
+export interface User {
+  email: string
+  token: string
+}
 
+export interface SessionState {
+  user: User | null
+}
+export const userSessionStore = defineStore('session', {
+  state: (): SessionState => ({
+    user: null
+  }),
+  getters: {
+    isAuthenticated(state) {
+      return state.user !== null
+    }
+  },
+  actions: {
+    login(email: string) {
+      this.user = {
+        email: email,
+        token: ''
+      }
     },
+    logout() {
+      this.user = null
+    }
+  }
 })

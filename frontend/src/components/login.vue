@@ -17,30 +17,33 @@ import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
 
 export default defineComponent({
-  data() {
-    return {
-      email: '',
-      password: '',
-      errorMessage: ''
-    }
-  },
-  methods: {
-    /*async login() {
-      const store = userSessionStore()
+  setup() {
+    const sessionStore = userSessionStore()
+    const email = ref('')
+    const password = ref('')
+    const errorMessage = ref('')
+
+    const login = async () => {
       try {
-        const response = await checkCredentials(this.email, this.password)
-        if (response.status === 200) {
-          const userData = response.data
-          store.session.login(userData.email)
-          this.$router.push('/')
+        if (email.value === 'benutzer@email.com' && password.value === 'passwort123') {
+          sessionStore.login(email.value)
         } else {
-          this.errorMessage = 'Denied Credentials'
+          errorMessage.value = 'Falsche E-Mail oder Passwort.'
         }
       } catch (error) {
-        console.error('Something went wrong!', error)
-        this.errorMessage = 'Please, try again!'
+        // Fehlerbehandlung, falls eine API-Anfrage fehlschlägt
+        console.error('Fehler bei der Anmeldung:', error)
+        errorMessage.value = 'Fehler bei der Anmeldung. Bitte versuche es erneut.'
       }
-    }*/
+    }
+
+    return {
+      sessionStore,
+      email,
+      password,
+      errorMessage,
+      login
+    }
   }
 })
 </script>
