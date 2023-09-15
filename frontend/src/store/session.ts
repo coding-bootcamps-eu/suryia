@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import router from '@/router/index'
 export interface User {
   email: string
   token: string
@@ -11,6 +11,7 @@ export interface SessionState {
 export const userSessionStore = defineStore('session', {
   state: (): SessionState => ({
     user: null
+    //user: { email: '', token: '' }
   }),
   getters: {
     isAuthenticated(state) {
@@ -26,6 +27,7 @@ export const userSessionStore = defineStore('session', {
     },
     logout() {
       this.user = null
+      router.push({ name: 'Login' })
     }
   }
 })
