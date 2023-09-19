@@ -36,6 +36,7 @@ app.get("/status", async (req: Request, res: Response) => {
   }
 });
 
+//Passport-Middleware:
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,6 +54,7 @@ app.get("/corstest", (req: Request, res: Response) => {
   });
 });
 
+//Express-Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
