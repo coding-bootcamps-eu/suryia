@@ -5,6 +5,7 @@ import mongoose, { ConnectOptions, startSession } from "mongoose";
 import connectToDB from "./db";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
+import passport from "./passportconfig";
 
 const app = express();
 app.use(express.json());
@@ -34,6 +35,9 @@ app.get("/status", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
   cors({
