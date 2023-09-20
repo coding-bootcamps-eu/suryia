@@ -9,14 +9,13 @@ router.post("/login", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.status(401).json({ message: "Anmeldung fehlgeschlagen" });
+      return res.status(401).json({ message: "Login error!" });
     }
-    // Anmeldung erfolgreich
     req.login(user, (loginErr) => {
       if (loginErr) {
         return next(loginErr);
       }
-      return res.json({ message: "Anmeldung erfolgreich" });
+      return res.json({ message: "Successful loginI" });
     });
   })(req, res, next);
 });

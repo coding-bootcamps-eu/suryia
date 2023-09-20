@@ -7,7 +7,7 @@ import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 import passport from "./passportconfig";
 import session from "express-session";
-import connectMongo from "connect-mongo";
+import MongoStore from "connect-mongo";
 import authRoutes from "./routes/auth";
 
 const app = express();
@@ -39,7 +39,7 @@ app.get("/status", async (req: Request, res: Response) => {
   }
 });
 
-const MongoStore = connectMongo(session);
+const MongoStore = new connectMongo(session);
 
 //Express-Session
 app.use(
@@ -47,10 +47,10 @@ app.use(
     secret: "secret-key",
     resave: false,
     saveUninitialized: false,
-    /*  store: new MongoStore({
+    store: new MongoStore({
       mongooseConnection: mongoose.connection,
       mongoUrl: process.env.MONGO_URI,
-    }),*/
+    }),
   })
 );
 
