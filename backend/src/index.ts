@@ -6,6 +6,8 @@ import connectToDB from "./db";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 import passport from "./passportconfig";
+import session from "express-session";
+import connectMongo from "connect-mongo";
 
 const app = express();
 app.use(express.json());
@@ -35,6 +37,21 @@ app.get("/status", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+const MongoStore = connectMongo(session);
+
+//Express-Session
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      mongoUrl: process.env.MONGO_URI,
+    }),
+  })
+);
 
 //Passport-Middleware:
 app.use(passport.initialize());

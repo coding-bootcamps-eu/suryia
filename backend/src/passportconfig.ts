@@ -2,6 +2,7 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import { UserModel, User } from "./models/Users";
 
+//Passport-LocalStrategy configuration:
 passport.use(
   new passportLocal.Strategy((email, password, done) => {
     UserModel.findOne({ email }, (err: string, user: User | null) => {
@@ -15,8 +16,6 @@ passport.use(
   })
 );
 //Serialize and deserialize User:
-
-//Serializing the user and storing them in a session
 passport.serializeUser((user: User, done) => {
   done(null, user.email);
 });
