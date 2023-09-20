@@ -7,8 +7,8 @@ import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 import passport from "passport";
 import { login, register } from "./controller/accountController";
-import LocalStrategy from "passport-local";
-import { UserModel, User } from "./models/Users";
+import { Strategy as LocalStrategy } from "passport-local";
+import { UserModel } from "./models/Users";
 
 const app = express();
 app.use(express.json());
@@ -53,8 +53,8 @@ app.get("/corstest", (req: Request, res: Response) => {
   });
 });
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
+passport.use(new LocalStrategy(UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser());
 app.use(passport.initialize());
 
 //Express-Server
