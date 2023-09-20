@@ -1,32 +1,39 @@
+import {
+  Strategy as JwtStrategy,
+  ExtractJwt,
+  StrategyOptions,
+} from "passport-jwt";
 import passport from "passport";
-import passportLocal from "passport-local";
 import { UserModel, User } from "./models/Users";
+import { config } from "./config";
 
-//Passport-LocalStrategy configuration:
-passport.use(
-  new passportLocal.Strategy((email, password, done) => {
-    UserModel.findOne({ email }, (err: string, user: User | null) => {
-      if (err) return done(err);
-      if (!user.email)
-        return done(null, false, { message: "Incorrect email." });
-      if (user.password !== password)
-        return done(null, false, { message: "Incorrect password." });
-      return done(null, user);
-    });
-  })
-);
-//Serialize and deserialize User:
-passport.serializeUser((user: User, done) => {
-  done(null, user.email);
-});
+const jwtOptions: StrategyOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: config.jwtSecret,
+};
 
-passport.deserializeUser(async (email, done) => {
-  try {
-    const user = await UserModel.findById(email);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
+export default function initializePassport() {
+  const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
+    try {
+      const user = await UserModel.findById(payload.id);
 
-export default passport;
+      if (!user) {
+        return done(new Error("UserNotFound"), null);
+      } else if (payload.expire <= Date.now()) {
+        return done(new Error("TokenExpired"), null);
+      } else {
+        return done(null, user);
+      }
+    } catch (err) {
+      return done(err, null);
+    }
+  });
+
+  passport.use(strategy);
+
+  return {
+    initialize: function () {
+      return passport.initialize();
+    },
+  };
+}

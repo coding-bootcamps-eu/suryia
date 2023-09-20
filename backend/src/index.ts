@@ -5,10 +5,10 @@ import mongoose, { ConnectOptions, startSession } from "mongoose";
 import connectToDB from "./db";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
-import passport from "./passportconfig";
-import session from "express-session";
-import connectMongo from "connect-mongo";
-import authRoutes from "./routes/auth";
+import passport from "passport";
+import { login, register } from "./controller/accountController";
+import LocalStrategy from "passport-local";
+import { UserModel, User } from "./models/Users";
 
 const app = express();
 app.use(express.json());
@@ -39,25 +39,6 @@ app.get("/status", async (req: Request, res: Response) => {
   }
 });
 
-const MongoStore = connectMongo(session);
-
-//Express-Session
-app.use(
-  session({
-    secret: "secret-key",
-    resave: false,
-    saveUninitialized: false,
-    /*  store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      mongoUrl: process.env.MONGO_URI,
-    }),*/
-  })
-);
-
-//Passport-Middleware:
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(
   cors({
     //origin: "https://google.com",
@@ -71,20 +52,10 @@ app.get("/corstest", (req: Request, res: Response) => {
     status: "ok",
   });
 });
-// Routes
-app.use("/auth", authRoutes);
 
-app.get("/login", (req, res) => {
-  res.send("Please login!");
-});
-
-app.get("/", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send("Welcome to the dashboard.");
-  } else {
-    res.redirect("/login");
-  }
-});
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+app.use(passport.initialize());
 
 //Express-Server
 app.listen(PORT, () => {
