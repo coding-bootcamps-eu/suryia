@@ -7,7 +7,7 @@ import passport from "passport";
 import { UserModel, User } from "./models/Users";
 import { config } from "./config";
 
-const jwtOptions: StrategyOptions = {
+const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.jwtSecret,
 };
