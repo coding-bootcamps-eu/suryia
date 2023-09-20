@@ -23,7 +23,6 @@
     "@types/express": "^4.17.17",
     "@types/mongoose": "^5.11.97",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }
