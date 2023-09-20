@@ -8,6 +8,7 @@ import { Status } from "./models/Status";
 import passport from "./passportconfig";
 import session from "express-session";
 import connectMongo from "connect-mongo";
+import authRoutes from "./routes/auth";
 
 const app = express();
 app.use(express.json());
@@ -46,10 +47,10 @@ app.use(
     secret: "secret-key",
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
+    /*  store: new MongoStore({
       mongooseConnection: mongoose.connection,
       mongoUrl: process.env.MONGO_URI,
-    }),
+    }),*/
   })
 );
 
@@ -69,6 +70,20 @@ app.get("/corstest", (req: Request, res: Response) => {
   res.json({
     status: "ok",
   });
+});
+// Routes
+app.use("/auth", authRoutes);
+
+app.get("/login", (req, res) => {
+  res.send("Please login!");
+});
+
+app.get("/", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send("Welcome to the dashboard.");
+  } else {
+    res.redirect("/login");
+  }
 });
 
 //Express-Server
