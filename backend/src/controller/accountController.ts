@@ -27,11 +27,14 @@ export default {
     }
   },
   register: async (req: Request, res: Response) => {
+    // console.log("register");
     try {
       const newUser = new UserModel({
-        email: req.body.email,
+        username: req.body.email,
+        password: req.body.password,
       });
-      await UserModel.register(newUser, req.body.password);
+      console.log("register");
+      await UserModel.register(newUser, "password");
       res.json({ message: "Successful registration!" });
     } catch (err) {
       console.error("Invalid registration", err);
