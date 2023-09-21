@@ -14,10 +14,12 @@ const UserSchema: Schema<User> = new mongoose.Schema({
 });
 
 UserSchema.pre("save", async function (next) {
+  // only hash the password if it has been modified (or is new)
   if (!this.isModified("password")) {
     return next();
   }
   try {
+    // generate a salt
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
@@ -25,6 +27,16 @@ UserSchema.pre("save", async function (next) {
   } catch (error) {
     return next(error);
   }
+
+  UserSchema.methods.comparePassword = async function (
+    candidatePassword: string
+  ) {
+    try {
+      return await bcrypt.compare(candidatePassword, this.password);
+    } catch (error) {
+      throw error;
+    }
+  };
 });
 
 UserSchema.plugin(passportLocalMongoose);
