@@ -7,14 +7,17 @@ import passport from "passport";
 import { UserModel, User } from "./models/Users";
 import { config } from "./config";
 
-const jwtOptions = {
+const jwtOptions: StrategyOptions = {
+  //Authorization: Bearer in request headers
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.jwtSecret,
 };
 
 export default function initializePassport() {
+  // Post-Verified token
   const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
     try {
+      // Find user in MongoDB using the `id` in the JWT
       const user = await UserModel.findById(payload.id);
 
       if (!user) {
@@ -28,7 +31,8 @@ export default function initializePassport() {
       return done(err, null);
     }
   });
-
+  // Passport JWT Strategy triggered by validateJWTWithPassportJWT
+  //https://www.npmjs.com/package/passport-jwt
   passport.use(strategy);
 
   return {
