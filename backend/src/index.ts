@@ -9,6 +9,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
 import accountController from "./controller/accountController";
+import initializePassport from "./middleware/auth";
 
 const app = express();
 app.use(express.json());
@@ -46,12 +47,15 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/corstest", (req: Request, res: Response) => {
   res.json({
     status: "ok",
   });
 });
+const passportMiddleware = initializePassport();
+app.use(passportMiddleware.initialize());
 
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());

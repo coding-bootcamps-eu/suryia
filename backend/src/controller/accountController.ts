@@ -37,6 +37,6 @@ register : async (req: Request, res: Response) => {
     console.error("Invalid registration", err);
     res.status(500).json({ error: "Invalid registration" });
   }
-};
+}
 
 }

@@ -4,8 +4,8 @@ import {
   StrategyOptions,
 } from "passport-jwt";
 import passport from "passport";
-import { UserModel, User } from "./models/Users";
-import { config } from "./config";
+import { UserModel, User } from "../models/Users";
+import { config } from "../config";
 
 const jwtOptions: StrategyOptions = {
   //Authorization: Bearer in request headers
