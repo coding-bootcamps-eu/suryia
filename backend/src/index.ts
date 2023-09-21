@@ -6,9 +6,9 @@ import connectToDB from "./db";
 import { PORT, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 import passport from "passport";
-import { login, register } from "./controller/accountController";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
+import accountController from "./controller/accountController";
 
 const app = express();
 app.use(express.json());
@@ -56,6 +56,12 @@ app.get("/corstest", (req: Request, res: Response) => {
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 app.use(passport.initialize());
+
+app.get("/", (req, res) => {
+  res.send("Introduction JWT Auth");
+});
+app.post("/login", passport.authenticate("local"), accountController.login);
+app.post("/register", accountController.register);
 
 //Express-Server
 app.listen(PORT, () => {

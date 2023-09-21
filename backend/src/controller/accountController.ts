@@ -4,7 +4,8 @@ import { UserModel } from "../models/Users";
 import jwt from "jwt-simple";
 import { config } from "../config";
 
-export const login = async (req: Request, res: Response) => {
+export default{
+   login : async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
 
@@ -25,7 +26,7 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Ein Fehler ist aufgetreten" });
   }
 };
-export const register = async (req: Request, res: Response) => {
+register : async (req: Request, res: Response) => {
   try {
     const newUser = new UserModel({
       email: req.body.email,
@@ -37,3 +38,5 @@ export const register = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Invalid registration" });
   }
 };
+
+}
