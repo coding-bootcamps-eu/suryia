@@ -3,14 +3,14 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose, { ConnectOptions, startSession } from "mongoose";
 import connectToDB from "./db";
-import { PORT, MONGODB_URI, API_VERSION } from "./config";
+import { PORT, PASSPORT_SECRET, MONGODB_URI, API_VERSION } from "./config";
 import { Status } from "./models/Status";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
 import accountController from "./controller/accountController";
 import initializePassport from "./middleware/auth";
-
+import session from "express-session";
 const app = express();
 app.use(express.json());
 
@@ -54,6 +54,14 @@ app.get("/corstest", (req: Request, res: Response) => {
     status: "ok",
   });
 });
+
+app.use(
+  session({
+    secret: "PASSPORT_SECRET",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 const passportMiddleware = initializePassport();
 app.use(passportMiddleware.initialize());
 
