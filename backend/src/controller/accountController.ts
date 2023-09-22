@@ -7,12 +7,10 @@ import { config } from "../config";
 export default {
   login: async (req: Request, res: Response) => {
     try {
-      const { email, password } = req.body;
-      const user = await UserModel.findOne({
-        email: email,
-        password: password,
+      const user = await UserModel.findById({
+        username: req.body.username,
       });
-
+      console.log(user);
       if (!user) {
         return res.status(404).json({ error: "Invalid user" });
       }
@@ -36,11 +34,8 @@ export default {
       const newUser = new UserModel({
         username: email,
         password: password,
-        //username: req.body.email,
-        //password: req.body.password,
       });
-      console.log("register");
-      await UserModel.register(newUser, "password");
+      await UserModel.register(newUser, password);
       res.json({ message: "Successful registration!" });
     } catch (err) {
       console.error("Invalid registration", err);

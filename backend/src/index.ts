@@ -67,7 +67,7 @@ app.use(passportMiddleware.initialize());
 
 passport.use(
   new LocalStrategy(
-    { usernameField: "email", passwordField: "password" },
+    //{ usernameField: "email", passwordField: "password" },
     UserModel.authenticate()
   )
 );
