@@ -58,7 +58,10 @@ const passportMiddleware = initializePassport();
 app.use(passportMiddleware.initialize());
 
 passport.use(
-  new LocalStrategy({ usernameField: "email" }, UserModel.authenticate())
+  new LocalStrategy(
+    { usernameField: "email", passwordField: "password" },
+    UserModel.authenticate()
+  )
 );
 passport.serializeUser(UserModel.serializeUser());
 app.use(passport.initialize());
