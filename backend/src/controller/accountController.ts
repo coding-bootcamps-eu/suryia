@@ -10,25 +10,19 @@ import { API_VERSION } from "../config";
 export default {
   login: async (req: Request, res: Response) => {
     try {
-      const user = await UserModel.findById({
-        username: req.body.username,
-      });
-      console.log(user);
-      if (!user) {
-        return res.status(404).json({ error: "Invalid user" });
-      }
+      const user = await UserModel.findOne({ username: req.body.username });
+      if (!user) return res.status(404).json({ error: "User not found" });
 
-      const payload = {
-        id: user.id,
-        expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
-      };
+      // Überprüfe das Passwort
+      const isMatch = await user.comparePassword(req.body.password);
+      if (!isMatch) return res.status(401).json({ error: "Invalid password" });
 
+      const payload = { id: user.id, expire: Date.now() + 1000 * 60 * 60 * 2 };
       const token = jwt.encode(payload, config.jwtSecret);
-
       res.json({ token: token });
     } catch (err) {
-      console.error("Fehler", err);
-      res.status(500).json({ error: "Invalid process" });
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal server error" });
     }
   },
   register: async (req: Request, res: Response) => {
@@ -48,18 +42,18 @@ export default {
   getStatus: async (req: Request, res: Response) => {
     try {
       const secretToken = req.query.secret_token as string;
-      if (!secretToken) {
-        return res.status(400).json({ error: "Unauthorized" });
-      }
+
+      if (!secretToken)
+        return res.status(401).json({ error: "Unauthorized: Missing Token" });
+
       const dbStatus = mongoose.connection.readyState === 1;
       const status = await Status.findOne({});
 
-      console.log("Status saved successfully");
+      if (!status) return res.status(404).json({ error: "Status not found" });
+
       res.json({
         message: "Status retrieved successfully",
-        status: {
-          db: dbStatus,
-        },
+        status: { db: dbStatus },
         api_version: API_VERSION,
         user: req.user,
         token: secretToken,

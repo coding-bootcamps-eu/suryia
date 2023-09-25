@@ -34,7 +34,7 @@ app.get("/corstest", (req: Request, res: Response) => {
 
 app.use(
   session({
-    secret: "PASSPORT_SECRET",
+    secret: PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -44,12 +44,17 @@ app.use(passportMiddleware.initialize());
 
 passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
-app.use(passport.initialize());
+passport.deserializeUser(UserModel.deserializeUser());
 
 app.get("/", (req, res) => {
   res.send("Introduction JWT Auth");
 });
-app.get("/status", accountController.getStatus);
+
+app.get(
+  "/status",
+  passport.authenticate("jwt", { session: false }),
+  accountController.getStatus
+);
 app.post("/login", passport.authenticate("local"), accountController.login);
 app.post("/register", accountController.register);
 
@@ -57,4 +62,3 @@ app.post("/register", accountController.register);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-startSession();

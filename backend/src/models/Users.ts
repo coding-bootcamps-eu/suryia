@@ -27,18 +27,18 @@ UserSchema.pre("save", async function (next) {
   } catch (error) {
     return next(error);
   }
-
-  UserSchema.methods.comparePassword = async function (
-    candidatePassword: string
-  ) {
-    try {
-      return await bcrypt.compare(candidatePassword, this.password);
-    } catch (error) {
-      throw error;
-    }
-  };
 });
+
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string
+) {
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 
 UserSchema.plugin(passportLocalMongoose);
 
-export const UserModel = mongoose.model("User", UserSchema);
+export const UserModel = mongoose.model<User>("User", UserSchema);
