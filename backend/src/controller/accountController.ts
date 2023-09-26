@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import passportLocalMongoose from "passport-local-mongoose";
 import { UserModel } from "../models/Users";
 import jwt from "jwt-simple";
 import { config } from "../config";
@@ -47,7 +46,6 @@ export default {
   getStatus: async (req: Request, res: Response) => {
     try {
       const secretToken = req.headers.authorization as string;
-      //console.log(req.headers);
       if (!secretToken) {
         return res.status(401).json({ error: "Unauthorized: Missing Token" });
       }

@@ -1,10 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import mongoose, { ConnectOptions, startSession } from "mongoose";
 import connectToDB from "./db";
-import { PORT, PASSPORT_SECRET, MONGODB_URI, API_VERSION } from "./config";
-//import { Status } from "./models/Status";
+import { PORT, PASSPORT_SECRET } from "./config";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
