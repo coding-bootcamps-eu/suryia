@@ -46,21 +46,25 @@ export default {
   },
   getStatus: async (req: Request, res: Response) => {
     try {
-      const secretToken = req.query.secret_token as string;
-
-      if (!secretToken)
+      const secretToken = req.headers.authorization as string;
+      //console.log(req.headers);
+      if (!secretToken) {
         return res.status(401).json({ error: "Unauthorized: Missing Token" });
+      }
 
       const dbStatus = mongoose.connection.readyState === 1;
       const status = await Status.findOne({});
 
       if (!status) return res.status(404).json({ error: "Status not found" });
-
+      const { username, _id } = req.user as { username: string; _id: string };
       res.json({
         message: "Status retrieved successfully",
         status: { db: dbStatus },
         api_version: API_VERSION,
-        user: req.user,
+        user: {
+          username,
+          id: _id,
+        },
         token: secretToken,
       });
     } catch (err) {
