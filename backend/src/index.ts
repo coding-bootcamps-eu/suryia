@@ -56,15 +56,19 @@ app.get(
   accountController.getStatus
 );
 app.post("/logout", function (req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({ error: "User is not logged in" }); // 401 Unauthorized
+  }
   req.session.destroy(function (err) {
     if (err) {
       return next(err);
     }
     res.json({
-      message: "User succesfully logout!",
+      message: "User successfully logout!",
     });
   });
 });
+
 //Express-Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

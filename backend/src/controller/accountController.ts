@@ -26,6 +26,7 @@ export default {
   },
   register: async (req: Request, res: Response) => {
     try {
+      console.log(req.body);
       const { email, password } = req.body;
       if (!email || !password) {
         return res
