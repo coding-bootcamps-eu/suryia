@@ -9,6 +9,7 @@ import { API_VERSION } from "../config";
 export default {
   login: async (req: Request, res: Response) => {
     try {
+      console.log(req.body.username);
       const user = await UserModel.findOne({ username: req.body.username });
       if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -46,6 +47,7 @@ export default {
   },
   getStatus: async (req: Request, res: Response) => {
     try {
+      console.log(req.headers);
       const secretToken = req.headers.authorization as string;
       if (!secretToken) {
         return res.status(401).json({ error: "Unauthorized: Missing Token" });

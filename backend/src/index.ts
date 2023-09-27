@@ -56,9 +56,8 @@ app.get(
   accountController.getStatus
 );
 app.post("/logout", function (req, res, next) {
-  if (!req.user) {
-    return res.status(401).json({ error: "User is not logged in" }); // 401 Unauthorized
-  }
+  console.log(req.session);
+
   req.session.destroy(function (err) {
     if (err) {
       return next(err);
