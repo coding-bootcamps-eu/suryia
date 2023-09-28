@@ -8,7 +8,7 @@
       <input v-model="password" type="password" id="password" required />
       <button type="submit">LogIN</button>
     </form>
-    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
   <div v-else>
     <p>Your already logged in!</p>
@@ -28,8 +28,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: 'foobar11234@test.com',
-      password: 'password1234',
+      email: '',
+      password: '',
       errorMessage: ''
     }
   },
