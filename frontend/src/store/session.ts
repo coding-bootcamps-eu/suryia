@@ -19,10 +19,10 @@ export const userSessionStore = defineStore('session', {
     }
   },
   actions: {
-    login(email: string) {
+    login(email: string, token: string) {
       this.user = {
         email: email,
-        token: ''
+        token: token
       }
     },
     logout() {

@@ -15,11 +15,7 @@ app.use(express.json());
 //Connection to mongodb
 connectToDB();
 
-app.use(
-  cors({
-    //origin: "https://google.com",
-  })
-);
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

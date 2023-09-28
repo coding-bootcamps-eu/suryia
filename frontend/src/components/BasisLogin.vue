@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import axios from 'axios'
 
 export default defineComponent({
   setup() {
@@ -27,8 +28,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'foobar11234@test.com',
+      password: 'password1234',
       errorMessage: ''
     }
   },
@@ -36,8 +37,13 @@ export default defineComponent({
   methods: {
     async login() {
       try {
-        if (this.email === 'user@email.com' && this.password === 'password123') {
-          this.sessionStore.login(this.email)
+        const response = await axios.post('http://localhost:8080/login', {
+          username: this.email,
+          password: this.password
+        })
+        console.log(response)
+        if (response.data.token) {
+          this.sessionStore.login(this.email, response.data.token)
           this.$router.push({ name: 'Dashboard' })
         } else {
           this.errorMessage = 'Incorrect email or password'
@@ -45,8 +51,20 @@ export default defineComponent({
       } catch (error) {
         // Error handling in case of a failed API request.
         console.error('Error during login:', error)
-        this.errorMessage = 'Error during login. Try again!.'
+        this.errorMessage = 'Error during login. Try again!'
       }
+      // try {
+      //   if (this.email === 'user@email.com' && this.password === 'password123') {
+      //     this.sessionStore.login(this.email)
+      //     this.$router.push({ name: 'Dashboard' })
+      //   } else {
+      //     this.errorMessage = 'Incorrect email or password'
+      //   }
+      // } catch (error) {
+      //   // Error handling in case of a failed API request.
+      //   console.error('Error during login:', error)
+      //   this.errorMessage = 'Error during login. Try again!.'
+      // }
     }
   }
 })
