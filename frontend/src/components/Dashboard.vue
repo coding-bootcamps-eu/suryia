@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="sessionStore.isAuthenticated">
+    <p class="welcome-message">Welcome, {{ sessionStore.user?.email }}!</p>
     <button @click="logout" id="logout-button">LogOut</button>
   </div>
 </template>
