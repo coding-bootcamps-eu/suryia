@@ -1,15 +1,22 @@
 <template>
-  <div v-if="!sessionStore.isAuthenticated">
-    <h2>LOGIN</h2>
-    <form @submit.prevent="login">
-      <label for="email">Email:</label>
-      <input v-model="email" type="email" id="email" required />
-      <label for="pasword">Password:</label>
-      <input v-model="password" type="password" id="password" required />
-      <button type="submit">Login</button>
-    </form>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
+  <q-page class="flex flex-center">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">LOGIN</div>
+      </q-card-section>
+
+      <q-card-section>
+        <q-form @submit.prevent="login">
+          <q-input filled v-model="email" type="email" label="Email" required />
+          <q-input filled v-model="password" type="password" label="Password" required />
+          <div class="q-mt-md">
+            <q-btn label="Login" type="submit" color="primary" />
+          </div>
+        </q-form>
+        <div v-if="errorMessage" class="text-negative q-mt-md">{{ errorMessage }}</div>
+      </q-card-section>
+    </q-card>
+  </q-page>
 </template>
 
 <script lang="ts">
