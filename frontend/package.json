@@ -17,10 +17,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@quasar/extras": "^1.16.7",
     "axios": "^1.5.1",
     "pinia": "^2.1.6",
-    "quasar": "^2.12.7",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
@@ -51,6 +49,7 @@
     "prettier": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.69.5",
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.4.6",
     "typescript": "~5.1.6",
