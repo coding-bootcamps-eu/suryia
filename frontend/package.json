@@ -14,15 +14,17 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "serve": "quasar dev"
   },
   "dependencies": {
     "@quasar/app-vite": "^1.6.2",
     "@quasar/cli": "^2.3.0",
     "@quasar/extras": "^1.0.0",
+    "@quasar/vite-plugin": "^1.6.0",
     "axios": "^1.5.1",
     "pinia": "^2.1.6",
-    "quasar": "^2.0.0",
+    "quasar": "^2.14.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
