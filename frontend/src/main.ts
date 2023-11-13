@@ -5,8 +5,10 @@ import { createPinia } from 'pinia'
 import { userSessionStore } from './store/session'
 import App from './App.vue'
 import router from './router'
+import { Quasar } from 'quasar'
+import quasarUserOptions from './quasar-user-options'
 
-const app = createApp(App)
+const app = createApp(App).use(Quasar, quasarUserOptions)
 
 const pinia = createPinia()
 
