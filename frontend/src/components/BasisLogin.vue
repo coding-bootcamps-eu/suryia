@@ -1,15 +1,43 @@
 <template>
-  <div v-if="!sessionStore.isAuthenticated">
-    <h2>LOGIN</h2>
-    <form @submit.prevent="login">
-      <label for="email">Email:</label>
-      <input v-model="email" type="email" id="email" required />
-      <label for="pasword">Password:</label>
-      <input v-model="password" type="password" id="password" required />
-      <button type="submit">Login</button>
-    </form>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
+  <q-layout>
+    <q-header elevated>
+      <q-toolbar>
+        <q-toolbar-title> Suriya </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
+    <q-page-container>
+      <q-page class="flex flex-center">
+        <q-card v-if="!sessionStore.isAuthenticated" class="my-card">
+          <q-card-section>
+            <div class="text-h6">LOGIN</div>
+          </q-card-section>
+
+          <q-card-section>
+            <q-form @submit.prevent="login">
+              <q-input filled v-model="email" type="email" label="Email" id="email" required />
+              <q-input
+                filled
+                v-model="password"
+                type="password"
+                label="Password"
+                id="password"
+                required
+              />
+              <div class="q-mt-md">
+                <q-btn label="Login" type="submit" color="primary" />
+              </div>
+            </q-form>
+            <div v-if="errorMessage" class="text-red">{{ errorMessage }}</div>
+          </q-card-section>
+        </q-card>
+      </q-page>
+    </q-page-container>
+
+    <q-footer>
+      <!-- Fußzeile hier -->
+    </q-footer>
+  </q-layout>
 </template>
 
 <script lang="ts">
@@ -25,8 +53,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'julia12345@test.com',
+      password: 'password1234',
       errorMessage: ''
     }
   },

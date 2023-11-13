@@ -1,8 +1,31 @@
 <template>
-  <div v-if="sessionStore.isAuthenticated">
-    <p class="welcome-message">Welcome, {{ sessionStore.user?.email }}!</p>
-    <button @click="logout" id="logout-button">LogOut</button>
-  </div>
+  <q-layout>
+    <!-- Header mit Quasar Toolbar -->
+    <q-header elevated>
+      <q-toolbar>
+        <q-toolbar-title> Dashboard </q-toolbar-title>
+        <!-- Rechte Seite des Toolbars -->
+        <div class="q-toolbar__actions">
+          <div v-if="sessionStore.isAuthenticated">
+            <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
+          </div>
+        </div>
+      </q-toolbar>
+    </q-header>
+
+    <!-- Inhaltsbereich -->
+    <q-page-container>
+      <q-page padding>
+        <div v-if="sessionStore.isAuthenticated">
+          <p class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</p>
+          <!-- Weitere Inhalte Ihres Dashboards hier -->
+        </div>
+      </q-page>
+    </q-page-container>
+
+    <!--  Footer Bereich -->
+    <q-footer> </q-footer>
+  </q-layout>
 </template>
 
 <script lang="ts">
