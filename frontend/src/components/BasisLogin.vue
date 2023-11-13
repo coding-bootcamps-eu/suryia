@@ -6,7 +6,7 @@
       <input v-model="email" type="email" id="email" required />
       <label for="pasword">Password:</label>
       <input v-model="password" type="password" id="password" required />
-      <button type="submit">LogIN</button>
+      <button type="submit">Login</button>
     </form>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
