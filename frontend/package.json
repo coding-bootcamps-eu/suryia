@@ -17,6 +17,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@quasar/app-vite": "^1.6.2",
+    "@quasar/cli": "^2.3.0",
     "axios": "^1.5.1",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
