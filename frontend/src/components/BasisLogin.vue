@@ -106,8 +106,8 @@ export default defineComponent({
 }
 
 .flex-center span {
-  margin-left: 1em; /* Abstand zwischen Logo und Text */
-  white-space: nowrap; /* Zeilenumbruch */
+  margin-left: 1em;
+  white-space: nowrap;
 }
 .footer-content {
   display: flex;
