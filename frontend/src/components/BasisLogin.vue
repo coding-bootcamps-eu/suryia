@@ -3,7 +3,7 @@
     <!-- Header-->
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Suriya </q-toolbar-title>
+        <q-toolbar-title> Suriya | A Link Guiding System</q-toolbar-title>
         <q-space />
         <q-btn
           flat

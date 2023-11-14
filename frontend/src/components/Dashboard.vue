@@ -3,7 +3,7 @@
     <!-- Header-->
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Suriya </q-toolbar-title>
+        <q-toolbar-title>Suriya | A Link Guiding System</q-toolbar-title>
         <div class="q-toolbar__actions">
           <div v-if="sessionStore.isAuthenticated">
             <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
