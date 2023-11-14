@@ -3,18 +3,26 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title> Suriya </q-toolbar-title>
+        <q-space />
+        <q-btn
+          flat
+          v-if="!sessionStore.isAuthenticated"
+          @click="goToRegister"
+          icon="person_add"
+          label="Register"
+        />
       </q-toolbar>
     </q-header>
 
     <q-page-container>
       <q-page class="flex flex-center">
-        <q-card v-if="!sessionStore.isAuthenticated" class="my-card">
-          <q-card-section>
-            <div class="text-h6">LOGIN</div>
+        <q-card v-if="!sessionStore.isAuthenticated" class="my-card" bordered>
+          <q-card-section class="bg-primary text-white">
+            <div class="text-h5">LOGIN</div>
           </q-card-section>
 
           <q-card-section>
-            <q-form @submit.prevent="login">
+            <q-form @submit.prevent="login" class="q-gutter-md">
               <q-input filled v-model="email" type="email" label="Email" id="email" required />
               <q-input
                 filled
@@ -25,7 +33,7 @@
                 required
               />
               <div class="q-mt-md">
-                <q-btn label="Login" type="submit" color="primary" />
+                <q-btn label="Login" type="submit" color="secondary" stretch />
               </div>
             </q-form>
             <div v-if="errorMessage" class="text-red">{{ errorMessage }}</div>
@@ -34,8 +42,13 @@
       </q-page>
     </q-page-container>
 
-    <q-footer>
-      <!-- Fußzeile hier -->
+    <q-footer reveal elevated>
+      <q-toolbar>
+        <div class="q-toolbar__title flex-center">
+          <img :src="bootcamplogo" alt="Logo" class="footer-logo" />
+          <span>Developed by Ferdinand Niemann, Joe Gregory and Jipson Minibhavan</span>
+        </div>
+      </q-toolbar>
     </q-footer>
   </q-layout>
 </template>
@@ -43,6 +56,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import bootcamplogo from '@/assets/bootcamplogo.png'
 import axios from 'axios'
 
 export default defineComponent({
@@ -55,7 +69,8 @@ export default defineComponent({
     return {
       email: 'julia12345@test.com',
       password: 'password1234',
-      errorMessage: ''
+      errorMessage: '',
+      bootcamplogo: bootcamplogo
     }
   },
 
@@ -82,3 +97,29 @@ export default defineComponent({
   }
 })
 </script>
+<style>
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-center span {
+  margin-left: 1em; /* Abstand zwischen Logo und Text */
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-logo {
+  height: 50px; /* Adjust the size as needed */
+}
+
+.footer-text {
+  margin-left: 16px; /* Adjust the spacing as needed */
+}
+</style>
