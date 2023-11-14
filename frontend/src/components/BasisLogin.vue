@@ -117,10 +117,10 @@ export default defineComponent({
 }
 
 .footer-logo {
-  height: 50px; /* Adjust the size as needed */
+  height: 50px;
 }
 
 .footer-text {
-  margin-left: 16px; /* Adjust the spacing as needed */
+  margin-left: 16px;
 }
 </style>
