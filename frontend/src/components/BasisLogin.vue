@@ -1,5 +1,6 @@
 <template>
   <q-layout>
+    <!-- Header-->
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title> Suriya </q-toolbar-title>
@@ -13,12 +14,12 @@
         />
       </q-toolbar>
     </q-header>
-
+    <!-- Inhaltsbereich -->
     <q-page-container>
       <q-page class="flex flex-center">
         <q-card v-if="!sessionStore.isAuthenticated" class="my-card" bordered>
           <q-card-section class="bg-primary text-white">
-            <div class="text-h5">LOGIN</div>
+            <div class="text-h5">Login</div>
           </q-card-section>
 
           <q-card-section>
@@ -41,7 +42,7 @@
         </q-card>
       </q-page>
     </q-page-container>
-
+    <!--  Footer Bereich -->
     <q-footer reveal elevated>
       <q-toolbar>
         <div class="q-toolbar__title flex-center">
@@ -106,7 +107,7 @@ export default defineComponent({
 
 .flex-center span {
   margin-left: 1em; /* Abstand zwischen Logo und Text */
-  white-space: nowrap; /* Verhindert Zeilenumbruch */
+  white-space: nowrap; /* Zeilenumbruch */
 }
 .footer-content {
   display: flex;
