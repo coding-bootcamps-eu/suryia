@@ -14,10 +14,9 @@
 
     <!-- Inhaltsbereich -->
     <q-page-container>
-      <q-page padding>
-        <div v-if="sessionStore.isAuthenticated">
+      <q-page class="container">
+        <div v-if="sessionStore.isAuthenticated" class="welcome-message">
           <p class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</p>
-          <!-- Weitere Inhalte Ihres Dashboards hier -->
         </div>
       </q-page>
     </q-page-container>
@@ -66,4 +65,19 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+}
+.welcome-message {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  width: 100%;
+  padding: 20px;
+  margin-top: 5vh;
+}
+</style>
