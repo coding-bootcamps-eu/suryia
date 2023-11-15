@@ -1,30 +1,22 @@
 <template>
   <q-layout>
-    <!-- Header-->
-    <q-header elevated>
+    <!-- Header -->
+    <Header />
+    <!-- <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>Suriya | A Link Guiding System</q-toolbar-title>
-        <div class="q-toolbar__actions">
-          <div v-if="sessionStore.isAuthenticated">
-            <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
-          </div>
+        <q-toolbar-title class="toolbar-title"> Suriya | A Link Guiding System </q-toolbar-title>
+        <q-space />
+        <div v-if="sessionStore.isAuthenticated" class="logout-section">
+          <div class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</div>
+          <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
         </div>
       </q-toolbar>
-    </q-header>
-
-    <!-- Inhaltsbereich -->
-    <q-page-container>
-      <q-page class="container">
-        <div v-if="sessionStore.isAuthenticated" class="welcome-message">
-          <p class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</p>
-        </div>
-      </q-page>
-    </q-page-container>
+    </q-header>-->
 
     <!--  Footer Bereich -->
     <q-footer reveal elevated>
       <q-toolbar>
-        <div class="q-toolbar__title flex-center">
+        <div class="q-toolbar__title flex-center footer-content">
           <img :src="bootcamplogo" alt="Logo" class="footer-logo" />
           <span>Developed by Ferdinand Niemann, Joe Gregory and Jipson Minibhavan</span>
         </div>
@@ -34,12 +26,17 @@
 </template>
 
 <script lang="ts">
+import Header from '@/components/Header.vue'
 import { defineComponent } from 'vue'
 import { userSessionStore } from '@/store/session'
 import bootcamplogo from '@/assets/bootcamplogo.png'
 import axios from 'axios'
 
 export default defineComponent({
+  name: 'Dashboard',
+  components: {
+    Header
+  },
   setup() {
     const sessionStore = userSessionStore()
     return { sessionStore }
@@ -66,18 +63,32 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.container {
+/*.container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   height: 100vh;
+}*/
+
+.flex-center span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1em;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-.welcome-message {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 20px;
-  margin-top: 5vh;
+}
+.footer-logo {
+  height: 50px;
+}
+
+.footer-text {
+  margin-left: 16px;
 }
 </style>

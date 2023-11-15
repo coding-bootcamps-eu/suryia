@@ -1,9 +1,10 @@
 <template>
   <q-layout>
     <!-- Header-->
-    <q-header elevated>
+    <Header />
+    <!-- <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Suriya | A Link Guiding System</q-toolbar-title>
+        <q-toolbar-title class="toolbar-title"> Suriya | A Link Guiding System</q-toolbar-title>
         <q-space />
         <q-btn
           flat
@@ -13,12 +14,12 @@
           label="Register"
         />
       </q-toolbar>
-    </q-header>
+    </q-header>-->
     <!-- Inhaltsbereich -->
     <q-page-container>
       <q-page class="flex flex-center">
         <q-card v-if="!sessionStore.isAuthenticated" class="my-card" bordered>
-          <q-card-section class="bg-primary text-white">
+          <q-card-section class="bg-secondary text-white">
             <div class="text-h5">Login</div>
           </q-card-section>
 
@@ -34,7 +35,7 @@
                 required
               />
               <div class="q-mt-md">
-                <q-btn label="Login" type="submit" color="secondary" stretch />
+                <q-btn label="Login" type="submit" color="secondary" />
               </div>
             </q-form>
             <div v-if="errorMessage" class="text-red">{{ errorMessage }}</div>
@@ -55,12 +56,17 @@
 </template>
 
 <script lang="ts">
+import Header from '@/components/Header.vue'
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
 import bootcamplogo from '@/assets/bootcamplogo.png'
 import axios from 'axios'
 
 export default defineComponent({
+  name: 'BasisLogin',
+  components: {
+    Header
+  },
   setup() {
     const sessionStore = userSessionStore()
     return { sessionStore }
@@ -98,16 +104,23 @@ export default defineComponent({
   }
 })
 </script>
-<style>
+<style scoped>
 .flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.q-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 .flex-center span {
   margin-left: 1em;
   white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 .footer-content {
   display: flex;
@@ -115,7 +128,6 @@ export default defineComponent({
   align-items: center;
   width: 100%;
 }
-
 .footer-logo {
   height: 50px;
 }
