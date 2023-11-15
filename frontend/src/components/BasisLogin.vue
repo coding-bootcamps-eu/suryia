@@ -44,19 +44,21 @@
       </q-page>
     </q-page-container>
     <!--  Footer Bereich -->
-    <q-footer reveal elevated>
+    <Footer />
+    <!-- <q-footer reveal elevated>
       <q-toolbar>
         <div class="q-toolbar__title flex-center">
           <img :src="bootcamplogo" alt="Logo" class="footer-logo" />
           <span>Developed by Ferdinand Niemann, Joe Gregory and Jipson Minibhavan</span>
         </div>
       </q-toolbar>
-    </q-footer>
+    </q-footer>-->
   </q-layout>
 </template>
 
 <script lang="ts">
 import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
 import bootcamplogo from '@/assets/bootcamplogo.png'
@@ -65,7 +67,8 @@ import axios from 'axios'
 export default defineComponent({
   name: 'BasisLogin',
   components: {
-    Header
+    Header,
+    Footer
   },
   setup() {
     const sessionStore = userSessionStore()
@@ -116,23 +119,5 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-.flex-center span {
-  margin-left: 1em;
-  white-space: nowrap;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.footer-logo {
-  height: 50px;
-}
-
-.footer-text {
-  margin-left: 16px;
 }
 </style>
