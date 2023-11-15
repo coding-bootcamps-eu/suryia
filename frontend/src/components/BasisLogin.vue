@@ -1,20 +1,5 @@
 <template>
   <q-layout>
-    <!-- Header-->
-    <Header />
-    <!-- <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title class="toolbar-title"> Suriya | A Link Guiding System</q-toolbar-title>
-        <q-space />
-        <q-btn
-          flat
-          v-if="!sessionStore.isAuthenticated"
-          @click="goToRegister"
-          icon="person_add"
-          label="Register"
-        />
-      </q-toolbar>
-    </q-header>-->
     <!-- Inhaltsbereich -->
     <q-page-container>
       <q-page class="flex flex-center">
@@ -43,16 +28,6 @@
         </q-card>
       </q-page>
     </q-page-container>
-    <!--  Footer Bereich -->
-    <Footer />
-    <!-- <q-footer reveal elevated>
-      <q-toolbar>
-        <div class="q-toolbar__title flex-center">
-          <img :src="bootcamplogo" alt="Logo" class="footer-logo" />
-          <span>Developed by Ferdinand Niemann, Joe Gregory and Jipson Minibhavan</span>
-        </div>
-      </q-toolbar>
-    </q-footer>-->
   </q-layout>
 </template>
 

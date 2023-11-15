@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-toolbar-title class="toolbar-title"> Suriya | A Link Guiding System</q-toolbar-title>
         <q-space />
-        <!-- Registrierungs-Button wenn der Benutzer nicht angemeldet ist -->
+        <!-- Registrierungs-Button, wenn der Benutzer nicht angemeldet ist -->
         <q-btn
           flat
           v-if="!sessionStore.isAuthenticated"
@@ -25,6 +25,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import axios from 'axios'
 export default defineComponent({
   name: 'Header',
   setup() {
@@ -33,9 +34,14 @@ export default defineComponent({
   },
   emits: ['logout', 'goToRegister'],
   methods: {
-    logout() {
-      this.sessionStore.logout()
-      this.$emit('logout')
+    async logout() {
+      try {
+        const response = await axios.post('http://localhost:8080/logout')
+        this.sessionStore.logout()
+      } catch (error) {
+        console.error(error)
+      }
+      //this.$emit('logout')
     },
     goToRegister() {
       this.$emit('goToRegister')
