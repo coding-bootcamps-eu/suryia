@@ -1,23 +1,50 @@
 <template>
-  <div v-if="!sessionStore.isAuthenticated">
-    <h2>LOGIN</h2>
-    <form @submit.prevent="login">
-      <label for="email">Email:</label>
-      <input v-model="email" type="email" id="email" required />
-      <label for="pasword">Password:</label>
-      <input v-model="password" type="password" id="password" required />
-      <button type="submit">LogIN</button>
-    </form>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
+  <q-layout>
+    <!-- Inhaltsbereich -->
+    <q-page-container>
+      <q-page class="flex flex-center">
+        <q-card v-if="!sessionStore.isAuthenticated" class="my-card" bordered>
+          <q-card-section class="bg-secondary text-white">
+            <div class="text-h5">Login</div>
+          </q-card-section>
+
+          <q-card-section>
+            <q-form @submit.prevent="login" class="q-gutter-md">
+              <q-input filled v-model="email" type="email" label="Email" id="email" required />
+              <q-input
+                filled
+                v-model="password"
+                type="password"
+                label="Password"
+                id="password"
+                required
+              />
+              <div class="q-mt-md">
+                <q-btn label="Login" type="submit" color="secondary" />
+              </div>
+            </q-form>
+            <div v-if="errorMessage" class="text-red">{{ errorMessage }}</div>
+          </q-card-section>
+        </q-card>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script lang="ts">
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import bootcamplogo from '@/assets/bootcamplogo.png'
 import axios from 'axios'
 
 export default defineComponent({
+  name: 'BasisLogin',
+  components: {
+    Header,
+    Footer
+  },
   setup() {
     const sessionStore = userSessionStore()
     return { sessionStore }
@@ -25,9 +52,10 @@ export default defineComponent({
 
   data() {
     return {
-      email: '',
-      password: '',
-      errorMessage: ''
+      email: 'julia12345@test.com',
+      password: 'password1234',
+      errorMessage: '',
+      bootcamplogo: bootcamplogo
     }
   },
 
@@ -54,3 +82,17 @@ export default defineComponent({
   }
 })
 </script>
+<style scoped>
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.q-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
