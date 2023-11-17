@@ -1,5 +1,6 @@
 import { type Preview, setup } from '@storybook/vue3'
 import { createPinia } from 'pinia'
+import { initialize, mswDecorator } from 'msw-storybook-addon'
 import type { App } from 'vue'
 import {
   Quasar,
