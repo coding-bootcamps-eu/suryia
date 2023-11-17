@@ -1,6 +1,7 @@
 import { type Preview, setup } from '@storybook/vue3'
 import { createPinia } from 'pinia'
 import { initialize, mswDecorator } from 'msw-storybook-addon'
+import { handlers } from '../mocks/handlers'
 import type { App } from 'vue'
 import {
   Quasar,
@@ -47,8 +48,12 @@ setup((app: App) => {
   })
 })
 
+initialize()
+
 const preview: Preview = {
+  decorators: [mswDecorator],
   parameters: {
+    msw: handlers,
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {

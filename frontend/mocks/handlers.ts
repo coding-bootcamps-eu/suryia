@@ -1,8 +1,8 @@
-import { rest } from 'msw'
+import { rest, RequestHandler } from 'msw'
 
-export const handlers = [
-  rest.post('http://localhost:8080/login', (req, res, ctx) => {
-    const { username, password } = req.body as { username: string; password: string }
+export const handlers: RequestHandler[] = [
+  rest.post('http://localhost:8080/login', async (req, res, ctx) => {
+    const { username, password } = await req.json()
     if (username === 'julia12345@test.com' && password === 'password1234') {
       return res(ctx.json({ token: 'mocked-tocken' }))
     } else {
