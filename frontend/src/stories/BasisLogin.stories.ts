@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import BasisLogin from './BasisLogin.vue'
-import { reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { QLayout, QPageContainer, QPage, QCard, QCardSection, QForm, QInput, QBtn } from 'quasar'
 import { action } from '@storybook/addon-actions'
+import { mswDecorator } from 'msw-storybook-addon'
+import { handlers } from '../../mocks/handlers'
 
+const MockHeader = defineComponent({
+  template: '<div>Mock Header</div>'
+})
+
+const MockLogoutButton = defineComponent({
+  template: '<button @click="logout">Mock Logout</button>',
+  methods: {
+    logout() {
+      action('logout')()
+    }
+  }
+})
 interface LoginProps {
   email: string
   password: string
@@ -18,7 +32,11 @@ export default {
     password: { control: 'text', description: 'Passwort' },
     errorMessage: { control: 'text', description: 'Fehlermeldung' }
   },
-  tags: ['autodocs']
+  tags: ['autodocs'],
+  decorators: [mswDecorator],
+  parameters: {
+    msw: handlers
+  }
 } as Meta<typeof BasisLogin>
 
 const Template: StoryObj<LoginProps> = {
@@ -35,12 +53,13 @@ const Template: StoryObj<LoginProps> = {
       logout: action('logout')
     })
     const mockRouter = {
-      push: () => {} // Eine leere Funktion, die das Verhalten von $router.push simuliert
+      push: action('onRouteChange')
     }
     const onLogin = () => {
       action('onLogin')(args.email, 'mockToken')
       sessionStore.isAuthenticated = true
       sessionStore.user = { email: args.email, token: 'mockToken' }
+      action('onLoginSuccess')('User logged in', sessionStore.user)
     }
 
     return {
@@ -53,7 +72,9 @@ const Template: StoryObj<LoginProps> = {
         QForm,
         QInput,
         QBtn,
-        BasisLogin
+        BasisLogin,
+        MockHeader,
+        MockLogoutButton
       },
       setup() {
         return { args, onLogin, sessionStore, $router: mockRouter }
@@ -68,6 +89,7 @@ const Template: StoryObj<LoginProps> = {
                 :error-message="args.errorMessage" 
                 @login="onLogin" 
               />
+              <MockDashboard v-if="sessionStore.isAuthenticated" />
             </q-page>
           </q-page-container>
         </q-layout>

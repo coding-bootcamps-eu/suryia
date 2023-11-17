@@ -15,6 +15,8 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag'
   },
+  staticDirs: ['../public'],
+
   async viteFinal(config) {
     if (config.resolve) {
       config.resolve.alias = {
