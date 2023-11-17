@@ -32,19 +32,13 @@
 </template>
 
 <script lang="ts">
-import Header from '@/components/BasisHeader.vue'
-import Footer from '@/components/Footer.vue'
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
-import bootcamplogo from '@/assets/bootcamplogo.png'
 import axios from 'axios'
 
 export default defineComponent({
   name: 'BasisLogin',
-  components: {
-    Header,
-    Footer
-  },
+  components: {},
   setup() {
     const sessionStore = userSessionStore()
     return { sessionStore }
@@ -54,8 +48,7 @@ export default defineComponent({
     return {
       email: 'julia12345@test.com',
       password: 'password1234',
-      errorMessage: '',
-      bootcamplogo: bootcamplogo
+      errorMessage: ''
     }
   },
 
