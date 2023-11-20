@@ -10,6 +10,7 @@ import initializePassport from "./middleware/auth";
 import session from "express-session";
 import userRoutes from "./routes/userRoutes";
 import statusRoutes from "./routes/statusRoutes";
+
 const app = express();
 app.use(express.json());
 
