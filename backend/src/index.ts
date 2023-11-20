@@ -10,6 +10,7 @@ import initializePassport from "./middleware/auth";
 import session from "express-session";
 import userRoutes from "./routes/userRoutes";
 import statusRoutes from "./routes/statusRoutes";
+import linkRoutes from "./routes/linkRoutes";
 
 const app = express();
 app.use(express.json());
@@ -48,6 +49,7 @@ app.get("/", (req, res) => {
 
 app.use("/", userRoutes);
 app.use("/", statusRoutes);
+app.use("/", linkRoutes);
 
 //Express-Server
 app.listen(PORT, () => {
