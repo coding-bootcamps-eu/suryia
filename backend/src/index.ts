@@ -9,6 +9,7 @@ import { UserModel } from "./models/Users";
 import accountController from "./controller/accountController";
 import initializePassport from "./middleware/auth";
 import session from "express-session";
+
 const app = express();
 app.use(express.json());
 
