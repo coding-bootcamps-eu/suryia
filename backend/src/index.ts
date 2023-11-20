@@ -6,10 +6,10 @@ import { PORT, PASSPORT_SECRET } from "./config";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
-import accountController from "./controller/accountController";
 import initializePassport from "./middleware/auth";
 import session from "express-session";
-
+import userRoutes from "./routes/userRoutes";
+import statusRoutes from "./routes/statusRoutes";
 const app = express();
 app.use(express.json());
 
@@ -45,25 +45,8 @@ app.get("/", (req, res) => {
   res.send("Introduction JWT Auth");
 });
 
-app.post("/login", passport.authenticate("local"), accountController.login);
-app.post("/register", accountController.register);
-app.get(
-  "/status",
-  passport.authenticate("jwt", { session: false }),
-  accountController.getStatus
-);
-app.post("/logout", function (req, res, next) {
-  console.log(req.session);
-
-  req.session.destroy(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.json({
-      message: "User successfully logout!",
-    });
-  });
-});
+app.use("/", userRoutes);
+app.use("/", statusRoutes);
 
 //Express-Server
 app.listen(PORT, () => {
