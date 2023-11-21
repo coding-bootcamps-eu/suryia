@@ -6,18 +6,26 @@ const router = express.Router();
 
 // GET-Route zum Abrufen aller Links
 router.get(
-  "/",
+  "/link",
   passport.authenticate("jwt", { session: false }),
   linkController.getAllLinks
 );
 
 // POST-Route zum Erstellen eines neuen Links
 router.post(
-  "/",
+  "/link",
   passport.authenticate("jwt", { session: false }),
   linkController.createLink
 );
 
+// DELETE-Route zum Löschen eines Links
+router.delete(
+  "/link/:id",
+  passport.authenticate("jwt", { session: false }),
+  linkController.deleteLink
+);
+
+// Test Routen
 router.post("/test", (req, res) => {
   res.json({ message: "Test route works!" });
 });

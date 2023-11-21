@@ -6,6 +6,7 @@ export default {
   getAllLinks: async (req: Request, res: Response) => {
     try {
       const links = await Link.find();
+      console.log(links);
       res.json(links);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -21,6 +22,22 @@ export default {
       res.status(201).json(newLink);
     } catch (error) {
       res.status(400).json({ message: error.message });
+    }
+  },
+
+  // DELETE-Route zum Löschen eines Links
+  deleteLink: async (req: Request, res: Response) => {
+    console.log(req.params);
+    try {
+      const { id } = req.params;
+      const link = await Link.findByIdAndDelete(id);
+
+      if (!link) {
+        return res.status(404).json({ message: "Link not found" });
+      }
+      res.status(200).json({ message: "Link deleted succesfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   },
 };
