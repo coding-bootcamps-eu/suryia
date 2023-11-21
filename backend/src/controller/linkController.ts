@@ -50,7 +50,8 @@ export default {
       if (!link) {
         return res.status(404).json({ message: "Link not found" });
       }
-      res.status(200).json({ message: "Link updated succesfully" });
+      console.log("Updated link data:", link);
+      res.status(200).json({ message: "Link updated succesfully", link: link });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
