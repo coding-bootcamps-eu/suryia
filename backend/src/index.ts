@@ -43,9 +43,9 @@ passport.use(new LocalStrategy(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-app.get("/", (req, res) => {
-  res.send("Introduction JWT Auth");
-});
+//app.get("/", (req, res) => {
+//res.send("Introduction JWT Auth");
+//});
 
 app.use("/", userRoutes);
 app.use("/", statusRoutes);
