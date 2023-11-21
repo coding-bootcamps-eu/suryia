@@ -25,6 +25,13 @@ router.delete(
   linkController.deleteLink
 );
 
+// PUT-Route zum Aktualisieren eines Links
+router.put(
+  "/link/:id",
+  passport.authenticate("jwt", { session: false }),
+  linkController.updateLink
+);
+
 // Test Routen
 router.post("/test", (req, res) => {
   res.json({ message: "Test route works!" });

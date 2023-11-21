@@ -40,4 +40,19 @@ export default {
       res.status(500).json({ message: error.message });
     }
   },
+
+  // PUT-Route zum Aktualisieren eines Links
+  updateLink: async (req: Request, res: Response) => {
+    console.log(req.body);
+    try {
+      const { id } = req.params;
+      const link = await Link.findByIdAndUpdate(id, req.body, { new: true });
+      if (!link) {
+        return res.status(404).json({ message: "Link not found" });
+      }
+      res.status(200).json({ message: "Link updated succesfully" });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
 };
