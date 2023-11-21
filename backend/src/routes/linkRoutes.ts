@@ -1,7 +1,7 @@
 import express from "express";
-import Link from "../models/Link";
 import passport from "passport";
 import linkController from "../controller/linkController";
+
 const router = express.Router();
 
 // GET-Route zum Abrufen aller Links
