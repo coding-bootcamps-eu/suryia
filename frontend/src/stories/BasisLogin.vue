@@ -38,7 +38,7 @@ import axios from 'axios'
 
 export default defineComponent({
   name: 'BasisLogin',
-
+  components: {},
   setup() {
     const sessionStore = userSessionStore()
     return { sessionStore }
