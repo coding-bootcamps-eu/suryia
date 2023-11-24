@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import router from '@/router/index'
+import axios from 'axios'
 export interface User {
   email: string
   token: string
@@ -24,9 +25,20 @@ export const userSessionStore = defineStore('session', {
         email: email,
         token: token
       }
+
+      localStorage.setItem('access_token', token)
+      console.log(localStorage.getItem('access_token'))
+
+      if (token) {
+        this.user = { email, token }
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        console.log(axios.defaults.headers.common['Authorization'])
+      }
     },
     logout() {
       this.user = null
+      localStorage.removeItem('access_token')
+      delete axios.defaults.headers.common['Authorization']
       router.push({ name: 'Login' })
     }
   }
