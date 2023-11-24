@@ -9,7 +9,7 @@
       borderedtitle="LINK LIST"
       :rows="rows"
       :columns="columns"
-      row-key="name"
+      row-key="id"
     >
       <template v-slot:top="props">
         <div style="font-size: 20px; font-weight: bold; color: #027be3">LINK LIST</div>
@@ -70,13 +70,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, type PropType } from 'vue'
 import axios from 'axios'
+
+interface LinkRow {
+  _id: string
+  url: string
+  path: string
+  modified: Date
+}
 export default defineComponent({
   name: 'LinkList',
 
   props: {
-    rows: { type: Array, default: () => [] }
+    rows: { type: Array as PropType<LinkRow[]>, default: () => [] }
   },
   data() {
     return {
@@ -107,7 +114,7 @@ export default defineComponent({
         }
       ],
 
-      rows: []
+      rows: [] as LinkRow[]
     }
   },
   created() {
@@ -125,12 +132,20 @@ export default defineComponent({
         console.error('Failed to update links:', err)
       }
     },
-    deleteRow(row) {
-      console.log('Delete row', row)
+    async deleteRow(rowToDelete: LinkRow) {
+      if (confirm('Are you sure you want to delete this link?'))
+        try {
+          const response = await axios.delete(`http://localhost:8080/link/${rowToDelete._id}`)
+          console.log(this.rows)
+          if (response.status === 200) {
+            this.rows = this.rows.filter((row) => row._id !== rowToDelete._id)
+            //this.rows = JSON.parse(JSON.stringify(this.rows.filter((row) => row._id !== row._id)))
+          }
+        } catch (error) {
+          console.error('Failed to delete link', error)
+        }
     },
-    editRow(row) {
-      console.log('Edit row', row)
-    },
+    editRow(row) {},
     goToLink(url) {
       window.open(url, '_blank')
     }
