@@ -16,7 +16,8 @@ import {
   QToolbar,
   QToolbarTitle,
   QBtn,
-  QIcon
+  QIcon,
+  QTable
 } from 'quasar'
 import 'quasar/dist/quasar.css'
 import '@quasar/extras/material-icons/material-icons.css'
@@ -43,7 +44,8 @@ setup((app: App) => {
       QToolbar,
       QToolbarTitle,
       QBtn,
-      QIcon
+      QIcon,
+      QTable
     }
   })
 })
