@@ -30,7 +30,6 @@
       </template>
 
       <template v-slot:body-cell-path="props">
-        <!-- <q-tr :props="props" v-for="row in rows" :key="props.row.id"></q-tr>-->
         <q-td :props="props">
           <div
             style="cursor: pointer; color: blue; text-decoration: underline"
