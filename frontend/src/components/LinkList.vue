@@ -25,7 +25,7 @@
           icon-right="edit"
           label="Create Link"
           no-caps
-          @click="exportTable"
+          @click="navigateToCreateLinkPage"
         />
       </template>
 
@@ -71,6 +71,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 interface LinkRow {
@@ -117,6 +118,7 @@ export default defineComponent({
       rows: [] as LinkRow[]
     }
   },
+
   created() {
     this.fetchLinks()
   },
@@ -145,6 +147,10 @@ export default defineComponent({
           console.error('Failed to delete link', error)
         }
     },
+    navigateToCreateLinkPage() {
+      this.$router.push({ name: 'CreateLink' })
+    },
+
     editRow(row) {},
     goToLink(url) {
       window.open(url, '_blank')
