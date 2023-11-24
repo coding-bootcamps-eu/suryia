@@ -47,7 +47,7 @@
               outline
               round
               color="primary"
-              @click="editRow(props.row)"
+              @click="editLink(props.row)"
               no-caps
               flat
               dense
@@ -141,7 +141,6 @@ export default defineComponent({
           console.log(this.rows)
           if (response.status === 200) {
             this.rows = this.rows.filter((row) => row._id !== rowToDelete._id)
-            //this.rows = JSON.parse(JSON.stringify(this.rows.filter((row) => row._id !== row._id)))
           }
         } catch (error) {
           console.error('Failed to delete link', error)
@@ -151,7 +150,10 @@ export default defineComponent({
       this.$router.push({ name: 'CreateLink' })
     },
 
-    editRow(row) {},
+    editLink(row) {
+      this.$router.push({ name: 'EditLink', params: { id: row._id } })
+    },
+
     goToLink(url) {
       window.open(url, '_blank')
     }

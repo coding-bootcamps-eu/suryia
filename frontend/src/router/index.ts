@@ -4,6 +4,7 @@ import BasisLogin from '@/components/BasisLogin.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import CreateLink from '@/components/CreateLink.vue'
 import LinkList from '@/components/LinkList.vue'
+const EditLink = () => import('@/components/EditLink.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,12 @@ const router = createRouter({
       path: '/create-link',
       name: 'CreateLink',
       component: CreateLink
+    },
+    {
+      path: '/edit-link/:id',
+      name: 'EditLink',
+      component: EditLink,
+      props: true
     }
   ]
 })

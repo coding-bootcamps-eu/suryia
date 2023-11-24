@@ -3,12 +3,11 @@
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="max-width: 300px; width: 100%">
         <p v-if="success">Successfully created new link.</p>
-        <form novalidate @submit.prevent="createLink" class="container">
+        <form novalidate @submit.prevent="editLink" class="container">
           <q-input filled v-model="url" label="Destination URL" :rules="urlRules" />
           <q-input filled v-model="path" label="Slug" :rules="slugRules" />
           <div class="row justify-around q-mt-md">
             <q-btn class="q-mt-sm" type="submit" label="Save" color="secondary" />
-            <q-btn class="q-mt-sm" type="resetForm" label="Reset" color="secondary" />
           </div>
           <div class="row justify-center q-py-md">
             <q-btn icon="chevron_left" flat @click="goBack" class="q-mr-md" />
@@ -26,6 +25,7 @@ import { defineComponent } from 'vue'
 
 interface Data {
   url: string
+  _id: string
   success: boolean
   path: string
   urlRules: Array<(val: string) => boolean | string>
@@ -33,35 +33,42 @@ interface Data {
 }
 
 export default defineComponent({
-  name: 'CreateLink',
+  name: 'EditLink',
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data(): Data {
     return {
       url: '',
       path: '',
+      _id: '',
       success: false,
       urlRules: [(val: string) => !!val || 'URL is required'],
       slugRules: [(val: string) => !!val || 'Slug is required']
     }
   },
   methods: {
-    async createLink() {
+    async editLink() {
       try {
         if (!this.url || !this.path) {
           alert('URL and Path are required.')
           return
         }
+
         const payload = { url: this.url, path: this.path }
-        const response = await axios.post('http://localhost:8080/link', payload)
+        const response = await axios.put(`http://localhost:8080/link/${this.id}`, payload)
 
         if (!response) {
           throw new Error('Network response was not ok')
         }
-        const newLink = response.data
-        console.log(newLink)
+        console.log('Updated link:', response.data)
         this.success = true
         this.$router.push({ name: 'LinkList' })
       } catch (error) {
-        console.error(error)
+        console.error('Update failed:', error)
         this.success = false
       }
     },
