@@ -1,15 +1,22 @@
 <template>
-  <p v-if="success">Successfully created new link.</p>
-  <form novalidate @submit.prevent="createLink" class="container">
-    <div class="q-pa-md" style="max-width: 300px">
-      <!-- Destination URL -->
-      <q-input filled v-model="url" label="Destination URL" :rules="urlRules" />
-      <!-- Slug -->
-      <q-input filled v-model="path" label="Slug" :rules="slugRules" />
-      <q-btn class="q-mt-sm" type="submit" label="Save" color="secondary" />
-      <q-btn class="q-mt-sm" label="Reset Validation" @click="resetForm" color="secondary" />
-    </div>
-  </form>
+  <q-page-container>
+    <q-page class="flex flex-center">
+      <div class="q-pa-md" style="max-width: 300px; width: 100%">
+        <p v-if="success">Successfully created new link.</p>
+        <form novalidate @submit.prevent="createLink" class="container">
+          <q-input filled v-model="url" label="Destination URL" :rules="urlRules" />
+          <q-input filled v-model="path" label="Slug" :rules="slugRules" />
+          <div class="row justify-around q-mt-md">
+            <q-btn class="q-mt-sm" type="submit" label="Save" color="secondary" />
+          </div>
+          <div class="row justify-center q-py-md">
+            <q-btn icon="chevron_left" flat @click="goBack" class="q-mr-md" />
+            <q-btn icon="chevron_right" flat @click="goBack" />
+          </div>
+        </form>
+      </div>
+    </q-page>
+  </q-page-container>
 </template>
 
 <script lang="ts">
@@ -61,7 +68,15 @@ export default defineComponent({
       this.url = ''
       this.path = ''
       this.success = false
+    },
+    goBack() {
+      this.$router.go(-1)
     }
   }
 })
 </script>
+<style>
+.q-page {
+  min-height: 100vh;
+}
+</style>
