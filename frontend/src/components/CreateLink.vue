@@ -2,7 +2,7 @@
   <q-page-container>
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="max-width: 300px; width: 100%">
-        <p v-if="success">Successfully created new link.</p>
+        <p v-if="success" class="success-message">Successfully created new link.</p>
         <form novalidate @submit.prevent="createLink" class="container">
           <q-input filled v-model="url" label="Destination URL" :rules="urlRules" />
           <q-input filled v-model="path" label="Slug" :rules="slugRules" />
@@ -62,10 +62,16 @@ export default defineComponent({
         if (!response) {
           throw new Error('Network response was not ok')
         }
-        const newLink = response.data
+        if (response && response.data) {
+          const newLink = response.data
+          console.log(newLink)
+          this.success = true
+          setTimeout(() => this.$router.push({ name: 'LinkList' }), 2000)
+        }
+        /*const newLink = response.data
         console.log(newLink)
         this.success = true
-        this.$router.push({ name: 'LinkList' })
+        this.$router.push({ name: 'LinkList' })*/
       } catch (error) {
         console.error(error)
         this.success = false
@@ -85,5 +91,15 @@ export default defineComponent({
 <style>
 .q-page {
   min-height: 100vh;
+
+  .success-message {
+    color: #28a745; /* Grün */
+    background-color: #dff0d8; /* Helles Grün */
+    border-color: #d4edda; /* Dunkleres Grün */
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
 }
 </style>
