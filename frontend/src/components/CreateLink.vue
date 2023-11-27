@@ -8,7 +8,13 @@
           <q-input filled v-model="path" label="Slug" :rules="slugRules" />
           <div class="row justify-around q-mt-md">
             <q-btn class="q-mt-sm" type="submit" label="Save" color="secondary" />
-            <q-btn class="q-mt-sm" type="resetForm" label="Reset" color="secondary" />
+            <q-btn
+              class="q-mt-sm"
+              type="button"
+              @click="resetForm"
+              label="Reset"
+              color="secondary"
+            />
           </div>
           <div class="row justify-center q-py-md">
             <q-btn icon="chevron_left" flat @click="goBack" class="q-mr-md" />

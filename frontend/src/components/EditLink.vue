@@ -84,6 +84,7 @@ export default defineComponent({
         const response = await axios.put(`http://localhost:8080/link/${this.id}`, payload)
 
         if (response && response.data) {
+          alert('Link updated succesfully')
           console.log('Updated link:', response.data)
           this.success = true
 
