@@ -154,7 +154,7 @@ export default defineComponent({
       this.$router.push({ name: 'EditLink', params: { id: row._id } })
     },
 
-    goToLink(url) {
+    goToLink(url: string) {
       window.open(url, '_blank')
     }
   }
