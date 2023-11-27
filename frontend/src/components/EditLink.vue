@@ -25,7 +25,6 @@ import { defineComponent } from 'vue'
 
 interface Data {
   url: string
-  // id: string
   success: boolean
   path: string
   urlRules: Array<(val: string) => boolean | string>
@@ -44,7 +43,6 @@ export default defineComponent({
     return {
       url: '',
       path: '',
-      //id: '',
       success: false,
       urlRules: [(val: string) => !!val || 'URL is required'],
       slugRules: [(val: string) => !!val || 'Slug is required']
