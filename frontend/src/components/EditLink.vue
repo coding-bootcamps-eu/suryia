@@ -25,7 +25,7 @@ import { defineComponent } from 'vue'
 
 interface Data {
   url: string
-  _id: string
+  // id: string
   success: boolean
   path: string
   urlRules: Array<(val: string) => boolean | string>
@@ -44,41 +44,60 @@ export default defineComponent({
     return {
       url: '',
       path: '',
-      _id: '',
+      //id: '',
       success: false,
       urlRules: [(val: string) => !!val || 'URL is required'],
       slugRules: [(val: string) => !!val || 'Slug is required']
     }
   },
+  created() {
+    if (this.id) {
+      this.loadLinkData()
+    }
+  },
   methods: {
-    async editLink() {
+    async loadLinkData() {
+      console.log(`Loading data for ID: ${this.id}`)
       try {
-        if (!this.url || !this.path) {
-          alert('URL and Path are required.')
-          return
+        const response = await axios.get(`http://localhost:8080/link/${this.id}`)
+        console.log(response)
+        if (response.data) {
+          this.url = response.data.url
+          this.path = response.data.path
+        } else {
+          console.error('No data returned from the server')
         }
-
-        const payload = { url: this.url, path: this.path }
+      } catch (error) {
+        console.error('Failed to load link data:', error)
+      }
+    },
+    async editLink() {
+      if (!this.url || !this.path) {
+        alert('URL and Path are required.')
+        return
+      }
+      const payload = {
+        url: this.url,
+        path: this.path
+      }
+      try {
         const response = await axios.put(`http://localhost:8080/link/${this.id}`, payload)
 
-        if (!response) {
+        if (response && response.data) {
+          console.log('Updated link:', response.data)
+          this.success = true
+
+          this.$router.push({ name: 'LinkList' })
+        } else {
           throw new Error('Network response was not ok')
         }
-        console.log('Updated link:', response.data)
-        this.success = true
-        this.$router.push({ name: 'LinkList' })
       } catch (error) {
         console.error('Update failed:', error)
         this.success = false
       }
     },
-    resetForm() {
-      this.url = ''
-      this.path = ''
-      this.success = false
-    },
     goBack() {
-      this.$router.go(-1)
+      this.$router.push({ name: 'LinkList' })
     }
   }
 })
