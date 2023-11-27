@@ -14,11 +14,12 @@
       <template v-slot:top="props">
         <div style="font-size: 20px; font-weight: bold; color: #027be3">LINK LIST</div>
         <q-space />
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+        <!-- Searchbar-->
+        <!--<q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
-        </q-input>
+        </q-input>-->
         <q-space />
         <q-btn
           color="secondary"
@@ -71,7 +72,6 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 interface LinkRow {
@@ -82,19 +82,16 @@ interface LinkRow {
 }
 export default defineComponent({
   name: 'LinkList',
-
+  /*setup() {
+    const linkStore = useLinkStore()
+    return { linkStore }
+  },*/
   props: {
     rows: { type: Array as PropType<LinkRow[]>, default: () => [] }
   },
   data() {
     return {
       columns: [
-        /*{
-          name: 'url',
-          align: 'left',
-          label: 'Destination URL',
-          field: 'url'
-        },*/
         {
           name: 'path',
           align: 'left',

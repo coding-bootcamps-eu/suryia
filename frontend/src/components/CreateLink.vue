@@ -2,7 +2,6 @@
   <q-page-container>
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="max-width: 300px; width: 100%">
-        <p v-if="success" class="success-message">Successfully created new link.</p>
         <form novalidate @submit.prevent="createLink" class="container">
           <q-input filled v-model="url" label="Destination URL" :rules="urlRules" />
           <q-input filled v-model="path" label="Slug" :rules="slugRules" />
@@ -21,6 +20,7 @@
             <q-btn icon="chevron_right" flat @click="goBack" />
           </div>
         </form>
+        <p v-if="success" class="success-message">Successfully created new link.</p>
       </div>
     </q-page>
   </q-page-container>
