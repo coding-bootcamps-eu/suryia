@@ -126,7 +126,9 @@ export default defineComponent({
         const response = await axios.get('http://localhost:8080/link')
 
         console.log('Response data:', response.data)
-        this.rows = response.data
+        this.rows = response.data.sort(
+          (a: any, b: any) => new Date(b.modified).getTime() - new Date(a.modified).getTime()
+        )
       } catch (err) {
         console.error('Failed to update links:', err)
       }

@@ -91,15 +91,14 @@ export default defineComponent({
 <style>
 .q-page {
   min-height: 100vh;
-
-  .success-message {
-    color: #28a745;
-    background-color: #dff0d8;
-    border-color: #d4edda;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-  }
+}
+.success-message {
+  color: #28a745;
+  background-color: #dff0d8;
+  border-color: #d4edda;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
 </style>
