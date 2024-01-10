@@ -23,23 +23,22 @@ describe('Szenario: Suriya Project Tests', () => {
 
     cy.contains('Successfully created new link').should('be.visible')
     cy.wait(3000)
+  })
+  it('should create a new link and then delete it', () => {
+    // Neuen Link erstellen
+    cy.visit('http://localhost:5173/')
+    cy.wait(2000)
+    cy.contains('button', 'Create Link').click()
 
-    it('should create a new link and then delete it', () => {
-      // Neuen Link erstellen
-      cy.visit('http://localhost:5173/')
-      cy.wait(2000)
-      cy.contains('button', 'Create Link').click()
+    cy.get('input[placeholder="Destination URL"]').type('https://example2.com')
+    cy.get('input[placeholder="Slug"]').type('test-slug2')
+    cy.contains('Save').click()
 
-      cy.get('input[placeholder="Destination URL"]').type('https://example2.com')
-      cy.get('input[placeholder="Slug"]').type('test-slug2')
-      cy.contains('Save').click()
+    cy.contains('Successfully created new link').should('be.visible')
+    cy.wait(3000)
 
-      cy.contains('Successfully created new link').should('be.visible')
-      cy.wait(3000)
-
-      cy.visit('http://localhost:5173/link-list')
-      cy.get('.q-table').should('exist')
-      cy.contains('test-slug2')
-    })
+    cy.visit('http://localhost:5173/link-list')
+    cy.get('.q-table').should('exist')
+    cy.contains('test-slug2')
   })
 })
