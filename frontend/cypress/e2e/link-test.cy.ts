@@ -73,6 +73,7 @@ describe('Szenario: Suriya Project Tests', () => {
     cy.contains('Save').click()
     cy.visit('http://localhost:5173/link-list')
     cy.get('.q-table').should('exist')
+    cy.wait(2000)
     cy.contains('tr', 'editiert').find('[data-cy="delete-button"]').click()
   })
   it('should reset the form when the reset button is clicked', () => {
@@ -93,5 +94,12 @@ describe('Szenario: Suriya Project Tests', () => {
     cy.get('.q-placeholder[aria-label="Destination URL"]').should('have.value', '')
     cy.get('.q-placeholder[aria-label="Slug"]').should('have.value', '')
     cy.contains('Successfully created new link').should('not.exist')
+
+    cy.visit('http://localhost:5173/link-list')
+    cy.get('[data-cy="logout-button"]').click()
+    cy.url().should('include', '/login')
+    cy.get('input[type="email"]').should('be.visible')
+    cy.get('input[type="password"]').should('be.visible')
+    cy.get('button[type="submit"]').should('be.visible')
   })
 })
