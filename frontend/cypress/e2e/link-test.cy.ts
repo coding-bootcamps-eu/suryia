@@ -1,5 +1,5 @@
 describe('Szenario: Suriya Project Tests', () => {
-  it('should  display the login form, show the logged page and create a new link ', () => {
+  it('should  display the login form, show the logged page, create a new link and logout ', () => {
     // Einloggen
     cy.visit('http://localhost:5173/login')
     cy.get('input[type="email"]').type('julia12345@test.com')
@@ -24,6 +24,13 @@ describe('Szenario: Suriya Project Tests', () => {
 
     cy.contains('Successfully created new link').should('be.visible')
     cy.wait(3000)
+
+    cy.visit('http://localhost:5173/link-list')
+    cy.get('[data-cy="logout-button"]').click()
+    cy.url().should('include', '/login')
+    cy.get('input[type="email"]').should('be.visible')
+    cy.get('input[type="password"]').should('be.visible')
+    cy.get('button[type="submit"]').should('be.visible')
   })
 
   it('should create a new link and then delete it', () => {

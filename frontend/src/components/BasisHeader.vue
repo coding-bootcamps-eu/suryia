@@ -15,7 +15,7 @@
         <!--Logout-Button, wenn Benutzer angemeldet ist -->
         <div v-if="sessionStore.isAuthenticated" class="logout-section">
           <div class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</div>
-          <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
+          <q-btn data-cy="logout-button" flat @click="logout" icon="exit_to_app" label="Logout" />
         </div>
       </q-toolbar>
     </q-header>
