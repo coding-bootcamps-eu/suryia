@@ -44,6 +44,7 @@
         <q-td :props="props">
           <div class="flex flex-row inline no-wrap items-center">
             <q-btn
+              data-cy="edit-button"
               icon="edit"
               outline
               round
