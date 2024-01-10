@@ -54,6 +54,7 @@
               dense
             />
             <q-btn
+              data-cy="delete-button"
               icon="delete"
               outline
               round
