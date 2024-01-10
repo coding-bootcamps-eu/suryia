@@ -42,8 +42,8 @@ describe('Szenario: Suriya Project Tests', () => {
       .type('https://example1.com')
     cy.get('.q-placeholder[aria-label="Slug"]').should('be.visible').type('test-slug2')
     cy.contains('Save').click()
-
     cy.contains('Successfully created new link').should('be.visible')
+
     cy.wait(3000)
     cy.on('window:confirm', () => true)
     cy.visit('http://localhost:5173/link-list')
@@ -84,5 +84,6 @@ describe('Szenario: Suriya Project Tests', () => {
     cy.contains('Reset').click()
     cy.get('.q-placeholder[aria-label="Destination URL"]').should('have.value', '')
     cy.get('.q-placeholder[aria-label="Slug"]').should('have.value', '')
+    cy.contains('Successfully created new link').should('be.visible')
   })
 })
