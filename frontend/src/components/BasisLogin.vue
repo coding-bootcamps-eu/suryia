@@ -46,8 +46,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: 'julia12345@test.com',
-      password: 'password1234',
+      email: '', //'julia12345@test.com',
+      password: '', //'password1234',
       errorMessage: ''
     }
   },
