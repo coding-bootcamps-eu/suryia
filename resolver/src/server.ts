@@ -1,5 +1,5 @@
 import App from "./app";
-
-const app = new App([]);
+import linkRoutes from "./routes/linkRoutes";
+const app = new App([linkRoutes]);
 
 app.listen();

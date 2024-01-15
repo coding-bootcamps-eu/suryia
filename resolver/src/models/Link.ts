@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ILink extends Document {
-  slug: string;
+  path: string;
   url: string;
 }
 
 const linkSchema = new Schema<ILink>({
-  slug: { type: String, required: true, unique: true },
+  path: { type: String, required: true, unique: true },
   url: { type: String, required: true },
 });
 
