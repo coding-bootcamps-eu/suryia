@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import connectToDB from "./config/db";
-
+import { PORT } from "./config/config";
 class App {
   public express: express.Application;
 
@@ -32,8 +32,8 @@ class App {
     }
   }
   public listen(): void {
-    this.express.listen(3000, () => {
-      console.log("Server läuft auf Port 3000 ");
+    this.express.listen(PORT, () => {
+      console.log(`Server on Port ${PORT}`);
     });
   }
 }
