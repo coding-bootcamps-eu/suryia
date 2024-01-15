@@ -11,8 +11,11 @@ import quasarUserOptions from './quasar-user-options'
 const app = createApp(App).use(Quasar, quasarUserOptions)
 
 const pinia = createPinia()
-
 app.use(pinia)
+
+const sessionStore = userSessionStore()
+sessionStore.restoreSession()
+
 app.use(router)
 
 app.mount('#app')

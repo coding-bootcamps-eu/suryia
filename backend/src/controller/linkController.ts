@@ -12,7 +12,19 @@ export default {
       res.status(500).json({ message: error.message });
     }
   },
-
+  // GET-Route zum Abrufen eines einzelnen Links
+  getLink: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const link = await Link.findById(id);
+      if (!link) {
+        return res.status(404).json({ message: "Link not found" });
+      }
+      res.json(link);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
   // POST-Route zum Erstellen eines neuen Links
   createLink: async (req: Request, res: Response) => {
     try {
@@ -46,7 +58,9 @@ export default {
     console.log(req.body);
     try {
       const { id } = req.params;
-      const link = await Link.findByIdAndUpdate(id, req.body, { new: true });
+      const link = await Link.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
       if (!link) {
         return res.status(404).json({ message: "Link not found" });
       }

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-header elevated>
+    <q-header>
       <q-toolbar>
         <q-toolbar-title class="toolbar-title"> Suriya | A Link Guiding System</q-toolbar-title>
         <q-space />
-        <!-- Registrierungs-Button, wenn der Benutzer nicht angemeldet ist -->
+        <!--Registrierungs-Button, wenn Benutzer nicht angemeldet ist -->
         <q-btn
           flat
           v-if="!sessionStore.isAuthenticated"
@@ -12,10 +12,10 @@
           icon="person_add"
           label="Register"
         />
-        <!--Logout-Button, wenn der Benutzer angemeldet ist -->
+        <!--Logout-Button, wenn Benutzer angemeldet ist -->
         <div v-if="sessionStore.isAuthenticated" class="logout-section">
           <div class="welcome-message">Willkommen, {{ sessionStore.user?.email }}!</div>
-          <q-btn flat @click="logout" icon="exit_to_app" label="Logout" />
+          <q-btn data-cy="logout-button" flat @click="logout" icon="exit_to_app" label="Logout" />
         </div>
       </q-toolbar>
     </q-header>

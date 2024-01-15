@@ -18,6 +18,13 @@ router.post(
   linkController.createLink
 );
 
+// GET-Route zum Abrufen eines einzelnen Links
+router.get(
+  "/link/:id",
+  passport.authenticate("jwt", { session: false }),
+  linkController.getLink
+);
+
 // DELETE-Route zum Löschen eines Links
 router.delete(
   "/link/:id",

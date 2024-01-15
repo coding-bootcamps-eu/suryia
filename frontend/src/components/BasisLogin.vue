@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { userSessionStore } from '@/store/session'
 import axios from 'axios'
 
@@ -46,8 +46,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: 'julia12345@test.com',
-      password: 'password1234',
+      email: '', //'julia12345@test.com',
+      password: '', //'password1234',
       errorMessage: ''
     }
   },
