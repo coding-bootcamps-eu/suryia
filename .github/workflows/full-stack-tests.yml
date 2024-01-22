@@ -40,7 +40,7 @@ jobs:
     - name: Initialize Database
       run: |
         cd backend
-        npm run initialize-db
+        MONGODB_URI=mongodb://admin:admin@localhost:27017/testdatabase npm run ts-node initialize-database.ts npm run initialize-db
 
     - name: Build Backend
       run: |
