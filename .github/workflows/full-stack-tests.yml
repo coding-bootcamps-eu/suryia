@@ -13,7 +13,8 @@ jobs:
       mongodb:
         image: mongo:${{ matrix.mongodb-version }}
         env:
-           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
         ports:
           - 27017:27017
         options: >-
@@ -31,21 +32,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    # Backend-Tests
     - name: Install Backend Dependencies
       run: |
         cd backend
         npm install
+
     - name: Initialize Database
       run: |
         cd backend
-        npm run ts-node initialize-database.ts
+        MONGODB_URI=mongodb://admin:admin@localhost:27017/testdatabase npm run ts-node initialize-database.ts
 
     - name: Build Backend
       run: |
         cd backend
         npm run build
-   
+
     - name: Start Backend
       run: |
         cd backend
@@ -55,6 +56,11 @@ jobs:
       run: |
         cd frontend
         npm install
+
+    - name: Run Frontend Tests
+      run: |
+        cd frontend
+        npm run test:e2e
 
     - name: Run Frontend Tests
       run: |
