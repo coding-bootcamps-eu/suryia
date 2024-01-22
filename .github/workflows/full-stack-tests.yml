@@ -14,3 +14,19 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18.17.1.'
+
+# Backend-Tests
+    - name: Install Backend Dependencies
+      run: 
+        cd backend
+        npm install
+
+    - name: Build Backend
+      run: 
+        cd backend
+        npm run build
+   
+    - name: Start Backend
+      run: 
+        cd backend
+        npm run start
