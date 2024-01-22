@@ -60,5 +60,5 @@ jobs:
     - name: Run Frontend Tests
       run: |
         cd frontend
-        npm run test:e2e
+        npm run test:e2e:dev
     timeout-minutes: 30
