@@ -45,6 +45,7 @@
     "@types/passport-local": "^1.0.35",
     "concurrently": "^8.2.1",
     "nodemon": "^3.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
