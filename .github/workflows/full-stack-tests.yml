@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
- services:
+service:
       mongodb:
-        image: mongo:4.4.6
+        image: mongodb-version:${{ matrix.mongodb-version }}
         env:
           MONGO_INITDB_ROOT_USERNAME: admin
           MONGO_INITDB_ROOT_PASSWORD: admin
