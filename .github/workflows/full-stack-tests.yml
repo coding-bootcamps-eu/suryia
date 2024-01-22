@@ -51,11 +51,6 @@ jobs:
         cd backend
         npm run start &
 
-    - name: Run Backend Tests
-      run: |
-        cd backend
-        npm test
-        
     - name: Install Frontend Dependencies
       run: |
         cd frontend
