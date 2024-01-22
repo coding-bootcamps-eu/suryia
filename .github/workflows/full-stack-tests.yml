@@ -9,17 +9,9 @@ jobs:
       matrix:
         node-version: [18.x, 20.x]
         mongodb-version: ['4.2', '4.4', '5.0', '6.0']
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-service:
+    services:
       mongodb:
-        image: mongodb-version:${{ matrix.mongodb-version }}
+        image: mongo:${{ matrix.mongodb-version }}
         env:
           MONGO_INITDB_ROOT_USERNAME: admin
           MONGO_INITDB_ROOT_PASSWORD: admin
@@ -32,18 +24,34 @@ service:
           --health-timeout 5s
           --health-retries 5
 
-# Backend-Tests
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Backend-Tests
     - name: Install Backend Dependencies
-      run: 
+      run: |
         cd backend
         npm install
 
     - name: Build Backend
-      run: 
+      run: |
         cd backend
         npm run build
    
     - name: Start Backend
-      run: 
+      run: |
         cd backend
-        npm run start
+        npm run start &
+
+    - name: Run Backend Tests
+      run: |
+        cd backend
+        npm test
+
+ 
