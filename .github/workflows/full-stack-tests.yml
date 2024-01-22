@@ -53,5 +53,13 @@ jobs:
       run: |
         cd backend
         npm test
+        
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm install
 
- 
+    - name: Run Frontend Tests
+      run: |
+        cd frontend
+        npm run test:e2e
