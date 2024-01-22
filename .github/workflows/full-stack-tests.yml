@@ -5,15 +5,18 @@ on: [push, pull_request]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        mongodb-version: ['4.2', '4.4', '5.0', '6.0']
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        node-version: '18.17.1.'
+        node-version: ${{ matrix.node-version }}
 
 # Backend-Tests
     - name: Install Backend Dependencies
