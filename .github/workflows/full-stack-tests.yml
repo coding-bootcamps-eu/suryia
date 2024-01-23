@@ -13,8 +13,8 @@ jobs:
       mongodb:
         image: mongo:${{ matrix.mongodb-version }}
         env:
-          MONGO_INITDB_ROOT_USERNAME: admin
-          MONGO_INITDB_ROOT_PASSWORD: admin
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
         ports:
           - 27017:27017
         options: >-
@@ -39,8 +39,8 @@ jobs:
 
     - name: Initialize Database
       run: |
-        cd backend
-        MONGODB_URI=mongodb://admin:admin@localhost:27017/testdatabase npm run initialize-db
+        MONGODB_URI=${{ secrets.MONGODB_URI }} npm run initialize-db
+
 
     - name: Build Backend
       run: |
@@ -60,5 +60,5 @@ jobs:
     - name: Run Frontend Tests
       run: |
         cd frontend
-        npm run test:e2e:dev
+        npm run test:e2e
     timeout-minutes: 30
