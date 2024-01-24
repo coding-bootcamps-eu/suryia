@@ -30,6 +30,11 @@ jobs:
       run: |
         cd backend
         npm install
+
+    - name: Build Backend
+      run: |
+        cd backend
+        npm run build
     
     - name: Start API
       run: |
