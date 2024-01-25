@@ -30,4 +30,3 @@ export const handlers: RequestHandler[] = [
     // Update-Logik
     return res(ctx.json({ updated: true }))
   })*/
-]
