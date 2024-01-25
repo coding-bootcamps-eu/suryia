@@ -13,7 +13,7 @@
     "format": "prettier --write src/",
     "preview": "vite preview --host --port 4000",
     "storybook": "storybook dev -p 6006",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --port 4000' http://localhost:4000 'cypress open --e2e'",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
