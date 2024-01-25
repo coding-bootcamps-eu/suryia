@@ -33,18 +33,19 @@ jobs:
         cd backend
         npm install
 
-    - name: Initialize Database
-      run: |
-        cd backend 
-        node initialize.ts 
-
     - name: Build Backend
       run: |
         cd backend
         npm run build
     
+    - name: Initialize Database
+      run: |
+        cd backend
+        npm run initialize-db
+
     - name: Start API
       run: |
         cd backend
         npm start
+
 
