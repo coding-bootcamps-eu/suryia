@@ -5,6 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_URI: mongodb://localhost:42069/suryia
     strategy:
       matrix:
         node-version: [18.17]
@@ -36,8 +38,35 @@ jobs:
         cd backend
         npm run build
     
+    - name: Initialize Database
+      run: |
+        cd backend
+        npm run initialize-db
+
     - name: Start API
       run: |
         cd backend
-        npm start
+        npm start &
 
+
+ # Frontend
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build Frontend (if necessary)
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Start Frontend in Background
+      run: |
+        cd frontend
+        npm run preview &
+
+    # E2E Tests
+    - name: Run E2E tests
+      run: |
+        cd frontend
+        npm run test:e2e
