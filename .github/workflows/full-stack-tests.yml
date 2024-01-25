@@ -49,3 +49,24 @@ jobs:
         npm start
 
 
+ # Frontend
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build Frontend (if necessary)
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Start Frontend in Background
+      run: |
+        cd frontend
+        npm run preview &
+
+    # E2E Tests
+    - name: Run E2E tests
+      run: |
+        cd frontend
+        npm run test:e2e
