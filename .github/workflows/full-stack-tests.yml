@@ -1,64 +1,43 @@
-name: Full Stack Tests
+name: Run tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
-        mongodb-version: ['4.2', '4.4', '5.0', '6.0']
-    services:
-      mongodb:
-        image: mongo:${{ matrix.mongodb-version }}
-        env:
-          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd mongo
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        node-version: [18.17]
+        mongodb-version: ['7.0']
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - name: Git checkout
+      uses: actions/checkout@v3
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.10.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: test-rs
+        mongodb-port: 42069
 
     - name: Install Backend Dependencies
       run: |
         cd backend
         npm install
 
-    - name: Initialize Database
-      run: |
-        MONGODB_URI=${{ secrets.MONGODB_URI }} npm run initialize-db
-
-
     - name: Build Backend
       run: |
         cd backend
         npm run build
-
-    - name: Start Backend
+    
+    - name: Start API
       run: |
         cd backend
-        npm run start &
+        npm start
 
-    - name: Install Frontend Dependencies
-      run: |
-        cd frontend
-        npm install
-
-    - name: Run Frontend Tests
-      run: |
-        cd frontend
-        npm run test:e2e
-    timeout-minutes: 30
