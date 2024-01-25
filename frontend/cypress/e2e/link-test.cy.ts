@@ -1,7 +1,7 @@
 describe('Szenario: Suriya Project Tests', () => {
   it('should  display the login form, show the logged page, create a new link and logout ', () => {
     // Einloggen
-    cy.visit('http://localhost:5173/login')
+    cy.visit('/login')
     cy.get('input[type="email"]').type('julia12345@test.com')
     cy.get('input[type="password"]').type('password1234')
     cy.get('button[type="submit"]').click()
@@ -25,7 +25,7 @@ describe('Szenario: Suriya Project Tests', () => {
     cy.contains('Successfully created new link').should('be.visible')
     cy.wait(3000)
 
-    cy.visit('http://localhost:5173/link-list')
+    cy.visit('/link-list')
     cy.get('[data-cy="logout-button"]').click()
     cy.url().should('include', '/login')
     cy.get('input[type="email"]').should('be.visible')
@@ -35,12 +35,12 @@ describe('Szenario: Suriya Project Tests', () => {
 
   it('should create a new link and then delete it', () => {
     // Neuen Link erstellen
-    cy.visit('http://localhost:5173/login')
+    cy.visit('/login')
     cy.get('input[type="email"]').type('julia12345@test.com')
     cy.get('input[type="password"]').type('password1234')
     cy.get('button[type="submit"]').click()
     cy.wait(2000)
-    cy.visit('http://localhost:5173/')
+    cy.visit('/')
     cy.wait(2000)
     cy.contains('button', 'Create Link').click()
 
@@ -53,36 +53,36 @@ describe('Szenario: Suriya Project Tests', () => {
 
     cy.wait(3000)
     cy.on('window:confirm', () => true)
-    cy.visit('http://localhost:5173/link-list')
+    cy.visit('/link-list')
     cy.get('.q-table').should('exist')
     cy.contains('tr', 'test-slug2').find('[data-cy="delete-button"]').click()
     cy.wait(2000)
   })
   it('should edit an existing link', () => {
-    cy.visit('http://localhost:5173/login')
+    cy.visit('/login')
     cy.get('input[type="email"]').type('julia12345@test.com')
     cy.get('input[type="password"]').type('password1234')
     cy.get('button[type="submit"]').click()
     cy.wait(2000)
-    cy.visit('http://localhost:5173/')
+    cy.visit('/')
     cy.wait(2000)
     cy.on('window:confirm', () => true)
     cy.get('.q-table').should('exist')
     cy.contains('tr', 'test-slug1').find('[data-cy="edit-button"]').click()
     cy.get('.q-placeholder[aria-label="Slug"]').should('be.visible').clear().type('editiert')
     cy.contains('Save').click()
-    cy.visit('http://localhost:5173/link-list')
+    cy.visit('/link-list')
     cy.get('.q-table').should('exist')
     cy.wait(2000)
     cy.contains('tr', 'editiert').find('[data-cy="delete-button"]').click()
   })
   it('should reset the form when the reset button is clicked', () => {
-    cy.visit('http://localhost:5173/login')
+    cy.visit('/login')
     cy.get('input[type="email"]').type('julia12345@test.com')
     cy.get('input[type="password"]').type('password1234')
     cy.get('button[type="submit"]').click()
     cy.wait(2000)
-    cy.visit('http://localhost:5173/')
+    cy.visit('/')
     cy.wait(2000)
     cy.contains('button', 'Create Link').click()
 
@@ -95,7 +95,7 @@ describe('Szenario: Suriya Project Tests', () => {
     cy.get('.q-placeholder[aria-label="Slug"]').should('have.value', '')
     cy.contains('Successfully created new link').should('not.exist')
 
-    cy.visit('http://localhost:5173/link-list')
+    cy.visit('/link-list')
     cy.get('[data-cy="logout-button"]').click()
     cy.url().should('include', '/login')
     cy.get('input[type="email"]').should('be.visible')
