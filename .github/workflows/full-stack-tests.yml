@@ -5,6 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_URI: mongodb://localhost:42069/suryia
     strategy:
       matrix:
         node-version: [18.17]
@@ -30,6 +32,11 @@ jobs:
       run: |
         cd backend
         npm install
+
+    - name: Initialize Database
+      run: |
+        cd backend 
+        node initialize.ts 
 
     - name: Build Backend
       run: |
