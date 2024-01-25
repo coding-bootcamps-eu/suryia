@@ -46,7 +46,7 @@ jobs:
     - name: Start API
       run: |
         cd backend
-        npm start
+        npm start &
 
 
  # Frontend
