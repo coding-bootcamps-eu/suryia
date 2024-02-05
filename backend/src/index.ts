@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import connectToDB from "./db";
-import { PORT, PASSPORT_SECRET } from "./config";
+import config from "./config";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "./models/Users";
@@ -31,7 +31,7 @@ app.get("/corstest", (req: Request, res: Response) => {
 
 app.use(
   session({
-    secret: PASSPORT_SECRET,
+    secret: config.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -48,6 +48,6 @@ app.use("/", statusRoutes);
 app.use("/", linkRoutes);
 
 //Express-Server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is running on port ${config.PORT}`);
 });

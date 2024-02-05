@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-import { PORT, MONGODB_URI, API_VERSION } from "./config";
+import config from "./config";
 import { Status } from "./models/Status";
 
 const connectToDB = async () => {
   try {
-    const instance = await mongoose.connect(MONGODB_URI);
+    const instance = await mongoose.connect(config.MONGODB_URI);
     console.log("Connected to MongoDB");
 
-    const status = new Status({ db: true, version: "1.0.0" });
+    const status = new Status({ db: true, version: config.API_VERSION });
     await Status.createCollection();
 
     const session = await instance.startSession();
