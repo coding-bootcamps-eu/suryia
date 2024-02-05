@@ -22,6 +22,7 @@
 <script lang="ts">
 import axios from 'axios'
 import { defineComponent } from 'vue'
+import { API_URL } from '@/utils/config'
 
 interface Data {
   url: string
@@ -57,7 +58,7 @@ export default defineComponent({
     async loadLinkData() {
       console.log(`Loading data for ID: ${this.id}`)
       try {
-        const response = await axios.get(`http://localhost:8080/link/${this.id}`)
+        const response = await axios.get(API_URL + `/link/${this.id}`)
         console.log(response)
         if (response.data) {
           this.url = response.data.url
@@ -79,7 +80,7 @@ export default defineComponent({
         path: this.path
       }
       try {
-        const response = await axios.put(`http://localhost:8080/link/${this.id}`, payload)
+        const response = await axios.put(API_URL + `/link/${this.id}`, payload)
 
         if (response && response.data) {
           alert('Link updated succesfully')

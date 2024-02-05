@@ -34,6 +34,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { userSessionStore } from '@/store/session'
+import { API_URL } from '@/utils/config.ts'
 import axios from 'axios'
 
 export default defineComponent({
@@ -46,8 +47,8 @@ export default defineComponent({
 
   data() {
     return {
-      email: '', //'julia12345@test.com',
-      password: '', //'password1234',
+      email: 'julia12345@test.com',
+      password: 'password1234',
       errorMessage: ''
     }
   },
@@ -55,7 +56,8 @@ export default defineComponent({
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://localhost:8080/login', {
+        console.log('API URL:', API_URL)
+        const response = await axios.post(API_URL + '/login', {
           username: this.email,
           password: this.password
         })

@@ -2,6 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["./**/*", "../support/**/*"],
   "compilerOptions": {
+    "baseUrl": "./",
     "isolatedModules": false,
     "target": "es5",
     "lib": ["es5", "dom"],
