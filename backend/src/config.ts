@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "./env.prod" });
 
 export const PORT: number = parseInt(process.env.PORT || "8080", 10);
 export const MONGODB_URI: string =
