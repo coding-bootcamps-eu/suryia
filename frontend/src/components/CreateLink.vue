@@ -29,7 +29,7 @@
 <script lang="ts">
 import axios from 'axios'
 import { defineComponent } from 'vue'
-
+import { API_URL } from '@/utils/config.ts'
 interface Data {
   url: string
   success: boolean
@@ -57,7 +57,7 @@ export default defineComponent({
           return
         }
         const payload = { url: this.url, path: this.path }
-        const response = await axios.post('http://localhost:8080/link', payload)
+        const response = await axios.post(API_URL + '/link', payload)
 
         if (!response) {
           throw new Error('Network response was not ok')

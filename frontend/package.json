@@ -4,16 +4,18 @@
   "private": true,
   "scripts": {
     "build": "run-p type-check build-only",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --e2e",
     "test:unit": "vitest",
-    "test:e2e": "start-server-and-test preview http://localhost:4000 'cypress run --e2e'",
+    "test:e2e": "start-server-and-test preview  'cypress run --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "build-only": "vite build",
     "build-storybook": "storybook build",
-    "dev": "vite",
+    "dev": "vite ",
     "format": "prettier --write src/",
-    "preview": "vite preview --host --port 4000",
+    "preview": "vite preview --host ",
     "storybook": "storybook dev -p 6006",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4000' http://localhost:4000 'cypress open --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --host' $VITE_DEV_SERVER_URL 'cypress open --e2e'",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {

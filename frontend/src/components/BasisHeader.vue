@@ -25,6 +25,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { userSessionStore } from '@/store/session'
+import { API_URL } from '@/utils/config.ts'
 import axios from 'axios'
 export default defineComponent({
   name: 'Header',
@@ -36,7 +37,7 @@ export default defineComponent({
   methods: {
     async logout() {
       try {
-        const response = await axios.post('http://localhost:8080/logout')
+        const response = await axios.post(API_URL + '/logout')
         this.sessionStore.logout()
       } catch (error) {
         console.error(error)

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import router from '@/router/index'
 import axios from 'axios'
-
+import { API_URL } from '@/utils/config'
 interface LinkRow {
   _id: string
   url: string
@@ -27,7 +27,7 @@ export const useLinkStore = defineStore({
     async fetchLinks() {
       console.log('Stored token:', localStorage.getItem('access_token'))
       try {
-        const response = await axios.get('http://localhost:8080/link')
+        const response = await axios.get(API_URL + '/link')
 
         console.log('Response data:', response.data)
         this.rows = response.data
@@ -39,7 +39,7 @@ export const useLinkStore = defineStore({
     async deleteRow(rowToDelete: LinkRow) {
       if (confirm('Are you sure you want to delete this link?'))
         try {
-          const response = await axios.delete(`http://localhost:8080/link/${rowToDelete._id}`)
+          const response = await axios.delete(API_URL + `/link/${rowToDelete._id}`)
           console.log(this.rows)
           if (response.status === 200) {
             this.rows = this.rows.filter((row) => row._id !== rowToDelete._id)
