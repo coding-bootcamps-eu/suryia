@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models/Users";
 import jwt from "jwt-simple";
-import { config } from "../config";
+import config from "../config";
 import mongoose from "mongoose";
 import { Status } from "../models/Status";
-import { API_VERSION } from "../config";
 
 export default {
   login: async (req: Request, res: Response) => {
@@ -61,7 +60,7 @@ export default {
       res.json({
         message: "Status retrieved successfully",
         status: { db: dbStatus },
-        api_version: API_VERSION,
+        api_version: config.API_VERSION,
         user: {
           username,
           id: _id,
