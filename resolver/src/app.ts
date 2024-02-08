@@ -10,7 +10,6 @@ class App {
     this.express = express();
     this.middleware();
     this.initializeRouters(routers);
-    this.databaseConnection();
   }
 
   private middleware(): void {
@@ -24,7 +23,7 @@ class App {
     });
   }
 
-  private async databaseConnection(): Promise<void> {
+  public async initializeDB(): Promise<void> {
     try {
       await connectToDB();
     } catch (error) {

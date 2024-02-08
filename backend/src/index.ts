@@ -5,7 +5,15 @@ import linkRoutes from "./routes/linkRoutes";
 
 const app = new App([userRoutes, statusRoutes, linkRoutes]);
 
-app.listen();
+app
+  .initializeDB()
+  .then(() => {
+    app.listen();
+  })
+  .catch((error) => {
+    console.error("Failed to initialize the application:", error);
+    process.exit(1);
+  });
 
 // import express, { Request, Response } from "express";
 // import bodyParser from "body-parser";

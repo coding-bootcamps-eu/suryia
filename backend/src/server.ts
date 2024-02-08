@@ -19,7 +19,6 @@ class App {
     this.initializeMiddleware();
     this.initializePassport();
     this.initializeRoutes(routes);
-    this.initializeDB();
   }
   private initializeMiddleware(): void {
     this.app.use(cors());
@@ -48,7 +47,7 @@ class App {
     });
   }
 
-  private async initializeDB(): Promise<void> {
+  public async initializeDB(): Promise<void> {
     try {
       await connectToDB();
       console.log("Database connection successful");
