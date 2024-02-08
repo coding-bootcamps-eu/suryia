@@ -19,7 +19,7 @@ class App {
     this.initializeMiddleware();
     this.initializePassport();
     this.initializeRoutes(routes);
-    this.databaseConnection();
+    this.initializeDB();
   }
   private initializeMiddleware(): void {
     this.app.use(cors());
@@ -48,13 +48,16 @@ class App {
     });
   }
 
-  private async databaseConnection(): Promise<void> {
+  private async initializeDB(): Promise<void> {
     try {
       await connectToDB();
+      console.log("Database connection successful");
     } catch (error) {
       console.error("MongoDB connection error:", error);
+      throw new Error("Database connection failed");
     }
   }
+
   public listen(): void {
     this.app.listen(config.PORT, () => {
       console.log(`Server on Port ${config.PORT}`);
