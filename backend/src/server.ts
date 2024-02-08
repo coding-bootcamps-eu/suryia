@@ -43,7 +43,7 @@ class App {
 
   private initializeRoutes(routes: Array<express.Router>): void {
     routes.forEach((route) => {
-      this.app.use("./", route);
+      this.app.use("/", route);
     });
   }
 
