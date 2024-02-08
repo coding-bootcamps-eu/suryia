@@ -13,9 +13,7 @@ Das Suryia-Projekt ist eine umfassende Full-Stack-Webanwendung, die sich auf die
 
 - Link-Router: Ein Express-Router verwaltet CRUD-Operationen (Erstellen, Lesen, Aktualisieren, Löschen) für Links. Diese Operationen sind durch JWT-basierte Authentifizierung gesichert.
 
-- Link-Resolver: Der Link-Resolver ist eine Express-Router-Konfiguration, die eine Wildcard-Route verwendet.Der Resolver extrahiert den path aus der URL der 
-                 Anfrage. Mit diesem Pfad sucht der Resolver in der MongoDB-Datenbank nach einem entsprechenden Link-Dokument. Durch den Link-Resolver kann das Backend nun nicht nur 
-                 Links verwalten, sondern auch direkte Umleitungen basierend auf den in der Datenbank gespeicherten Pfaden durchführen.
+- Link-Resolver: Der Link-Resolver ist eine Express-Router-Konfiguration, die eine Wildcard-Route verwendet.Der Resolver extrahiert den path aus der URL der Anfrage. Mit diesem Pfad sucht der Resolver in der MongoDB-Datenbank nach einem entsprechenden Link-Dokument. Durch den Link-Resolver kann das Backend nun nicht nur Links verwalten, sondern auch direkte Umleitungen basierend auf den in der Datenbank gespeicherten Pfaden durchführen.
 
 ### Frontend
 
@@ -23,10 +21,11 @@ Das Suryia-Projekt ist eine umfassende Full-Stack-Webanwendung, die sich auf die
 
 - Pinia: Pinia wird für das State-Management verwendet, wobei zwei Hauptstores definiert sind: einer für die Verwaltung der Links und ein weiterer für die Benutzersitzung.
 
-Link 
+Link zur Verwaltung: 
 https://suryiademo.netlify.app
 
-Logdaten: julia1234567@test.com /password1234
+Logdaten:
+julia1234567@test.com /password1234
 
 Link zum Resolver:
 https://suryia-resolver.onrender.com
