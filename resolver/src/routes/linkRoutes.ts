@@ -2,6 +2,13 @@ import express from "express";
 import Link from "../models/Link";
 
 const router = express.Router();
+
+router.get("/", (req, res) => {
+  res.send(
+    `<h1>Link Resolver</h1>
+    <p>Um den Link Resolver zu verwenden, fügen Sie den gewünschten Pfad nach dem '/' in der URL ein.</p>`
+  );
+});
 router.get("/:path", async (req, res) => {
   try {
     const path = req.params.path;

@@ -65,12 +65,3 @@ class App {
 }
 
 export default App;
-
-// import App from "./index";
-// import userRoutes from "./routes/userRoutes";
-// import statusRoutes from "./routes/statusRoutes";
-// import linkRoutes from "./routes/linkRoutes";
-
-// const app = new App([userRoutes, statusRoutes, linkRoutes]);
-
-// app.listen();
