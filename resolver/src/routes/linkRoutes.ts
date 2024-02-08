@@ -3,15 +3,10 @@ import Link from "../models/Link";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send(
-    `<h1>Link Resolver</h1>
-    <p>Um den Link Resolver zu verwenden, fügen Sie den gewünschten Pfad nach dem '/' in der URL ein.</p>`
-  );
-});
-router.get("/:path", async (req, res) => {
+router.get("*", async (req, res) => {
   try {
-    const path = req.params.path;
+    const path =
+      req.originalUrl[0] === "/" ? req.originalUrl.slice(1) : req.originalUrl;
     const link = await Link.findOne({ path: path });
 
     if (link) {
