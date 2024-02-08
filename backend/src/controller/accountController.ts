@@ -8,7 +8,6 @@ import { Status } from "../models/Status";
 export default {
   login: async (req: Request, res: Response) => {
     try {
-      console.log(req.body.username);
       const user = await UserModel.findOne({ username: req.body.username });
       if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -26,7 +25,6 @@ export default {
   },
   register: async (req: Request, res: Response) => {
     try {
-      console.log(req.body);
       const { email, password } = req.body;
       if (!email || !password) {
         return res
@@ -46,7 +44,6 @@ export default {
   },
   getStatus: async (req: Request, res: Response) => {
     try {
-      console.log(req.headers);
       const secretToken = req.headers.authorization as string;
       if (!secretToken) {
         return res.status(401).json({ error: "Unauthorized: Missing Token" });
