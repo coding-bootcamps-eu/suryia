@@ -56,8 +56,8 @@ export default defineComponent({
   methods: {
     async login() {
       try {
-        console.log('API URL:', API_URL)
-        const response = await axios.post(API_URL + '/login', {
+        console.log('Full API URL:', API_URL + 'login')
+        const response = await axios.post(`${API_URL}/login`, {
           username: this.email,
           password: this.password
         })
