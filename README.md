@@ -28,7 +28,7 @@ Logdaten:
 julia1234567@test.com /password1234 (Falls der Login nicht beim erstenmal funktioniert, Seite neu Laden)
 
 Link zum Resolver:
-https://suryia-resolver.onrender.com
+https://suryia-resolver.onrender.com ( Linkname aus der Linkliste entnehmen und in den Resolver eingebn)
 
 ## Requirements
 
