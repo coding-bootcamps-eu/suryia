@@ -25,7 +25,7 @@ Link zur Verwaltung:
 https://suryiademo.netlify.app
 
 Logdaten:
-julia1234567@test.com /password1234
+julia1234567@test.com /password1234 (Falls der Login nicht beim erstenmal funktioniert, Seite neu Laden)
 
 Link zum Resolver:
 https://suryia-resolver.onrender.com
