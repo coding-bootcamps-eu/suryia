@@ -63,10 +63,10 @@ jobs:
     - name: Start Frontend in Background
       run: |
         cd frontend
-        npm run dev &
+        npm run build-only &
 
     # E2E Tests
     - name: Run E2E tests
       run: |
         cd frontend
-        npm run test:e2e
+        npm run test:e2e:dev
