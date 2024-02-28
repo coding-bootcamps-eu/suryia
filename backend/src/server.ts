@@ -8,7 +8,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import connectToDB from "./db";
 import config from "./config";
 
-import { UserModel } from "./models/Users";
+import { User, UserModel } from "./models/Users";
 import initializePassport from "./middleware/auth";
 
 class App {
@@ -22,6 +22,12 @@ class App {
   }
   private initializeMiddleware(): void {
     this.app.use(cors());
+    this.app.use((req, res, next) => {
+      if (req.user) {
+        req.user = req.user as User;
+      }
+      next();
+    });
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(

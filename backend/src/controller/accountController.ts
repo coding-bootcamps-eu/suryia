@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { UserModel } from "../models/Users";
+import { User, UserModel } from "../models/Users";
 import jwt from "jwt-simple";
 import config from "../config";
 import mongoose from "mongoose";
 import { Status } from "../models/Status";
+import validator from "validator";
 
 export default {
   login: async (req: Request, res: Response) => {
@@ -26,22 +27,51 @@ export default {
   register: async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
+
       if (!email || !password) {
         return res
           .status(400)
           .json({ error: "Email and password are required" });
       }
+      // Validator, um das E-Mail-Format zu überprüfen
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({ error: "Invalid email format" });
+      }
+
+      // Prüfung ob es Benutzer gibt
+      const usersCount = await UserModel.countDocuments();
+      const isAdmin = usersCount === 0;
+
+      // Wenn nicht der erste Benutzer, überprüfe Admin-Berechtigung
+
+      const user = req.user as User;
+      if (!isAdmin && (!user || !user.isAdmin)) {
+        return res
+          .status(403)
+          .json({ error: "Only admins can register new users" });
+      }
+
       const newUser = new UserModel({
         username: email,
         password: password,
+        isAdmin: isAdmin, // Setze Admin, wenn erster Benutzer
       });
+
       await UserModel.register(newUser, password);
       res.json({ message: "Successful registration!" });
     } catch (err) {
       console.error("Invalid registration", err);
+
+      if (err.name === "UserExistsError") {
+        return res.status(409).json({
+          error: "A user with the given username is already registered",
+        });
+      }
+
       res.status(500).json({ error: "Invalid registration" });
     }
   },
+
   getStatus: async (req: Request, res: Response) => {
     try {
       const secretToken = req.headers.authorization as string;

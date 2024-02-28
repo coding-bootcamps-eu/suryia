@@ -5,12 +5,14 @@ export interface User extends Document {
   id: string;
   username: string;
   password: string;
+  isAdmin: boolean;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const UserSchema: Schema<User> = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
 });
 
 UserSchema.pre("save", async function (next) {
